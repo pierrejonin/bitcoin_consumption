@@ -9,4 +9,6 @@
 
 # Architecture du projet
 * **/src** : Les fichiers .vue : composants, pages...
+* **/data** : Les fichiers de données
+* **/pictures** : Les esquisses du projet
 
