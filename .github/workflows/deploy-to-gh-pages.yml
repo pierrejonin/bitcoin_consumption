@@ -1,8 +1,8 @@
 name: Deploy to GitHub Pages
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - master
 
 jobs:
@@ -11,9 +11,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-        
+
       - name: Build
         run: |
+          cd dataviz
           npm install
           npm run-script build
 
