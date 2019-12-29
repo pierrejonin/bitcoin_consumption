@@ -43,7 +43,8 @@ export default {
         .style('border', 'solid')
         .style('border-width', '2px')
         .style('border-radius', '5px')
-        .style('padding', '5px');
+        .style('padding', '5px')
+        .style('pointer-events', 'none');
 
       function mouseover() {
         Tooltip.style('opacity', 1);
