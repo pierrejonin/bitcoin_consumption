@@ -13,7 +13,8 @@ export default {
     // const dataset = [80, 100, 56, 120, 180, 30, 40, 120, 160];
 
     const dataset = [];
-    d3.csv('https://pierrejonin.github.io/bitcoin_consumption'.concat('/data/test.csv')).then((data) => {
+
+    d3.csv('https://pierrejonin.github.io/bitcoin_consumption'.concat('/data/test.csv'), (data) => {
       data.forEach((d) => {
         dataset.push(d.id);
       });

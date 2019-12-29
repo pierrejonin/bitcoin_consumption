@@ -2,19 +2,22 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Hello World"/>
-    <BarChart/>
+    <!-- <BarChart/> -->
+    <WorldMap/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue';
-import BarChart from './components/BarChart.vue';
+// import BarChart from './components/BarChart.vue';
+import WorldMap from './components/WorldMap.vue';
 
 export default {
   name: 'app',
   components: {
     HelloWorld,
-    BarChart,
+    // BarChart,
+    WorldMap,
   },
 };
 </script>
