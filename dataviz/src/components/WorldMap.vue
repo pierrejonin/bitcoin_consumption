@@ -79,8 +79,8 @@ export default {
     }
     // Load external data and then launch the function ready
     d3.queue()
-      .defer(d3.json, 'https://pierrejonin.github.io/bitcoin_consumption'.concat('./data/custom.geo.json'))
-      .defer(d3.csv, 'https://pierrejonin.github.io/bitcoin_consumption'.concat('./data/data_countries.csv'), (d) => { data.set(d.Country, +d.Consumption/* Population */); })
+      .defer(d3.json, 'https://pierrejonin.github.io/bitcoin_consumption'.concat('/data/custom.geo.json'))
+      .defer(d3.csv, 'https://pierrejonin.github.io/bitcoin_consumption'.concat('/data/data_countries.csv'), (d) => { data.set(d.Country, +d.Consumption/* Population */); })
       .await(ready);
   },
 };
