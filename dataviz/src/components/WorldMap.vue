@@ -7,13 +7,13 @@ import * as d3 from 'd3';
 import * as d3Chromatic from 'd3-scale-chromatic';
 
 export default {
-  name: 'BarChart',
+  name: 'WorldMap',
   mounted() {
     // The svg
     const svg = d3.select('#my_dataviz')
       .append('svg')
-      .attr('width', 800)
-      .attr('height', 600)
+      .attr('width', 900)
+      .attr('height', 700)
       .attr('transform',
         `translate(${0},${0})`);
     const width = +svg.attr('width');
@@ -47,19 +47,39 @@ export default {
         .style('pointer-events', 'none');
 
       function mouseover() {
-        Tooltip.style('opacity', 1);
+        Tooltip
+          .style('opacity', 0)
+          .classed('hidden', true);
+        d3
+          .selectAll('path')
+          .attr('stroke', '#fff')
+          .attr('stroke-width', '1px');
       }
 
       function mousemove(d) {
         const total = data.get(d.properties.name) || 0;
+        const htmlString = `${d.properties.name}<br>${total}<br>${Number.parseFloat((75000000000 * 100) / total).toFixed(2)}`;
+
         Tooltip
-          .html(`${d.properties.name}<br>${total}<br>${Number.parseFloat((75000000000 * 100) / total).toFixed(2)}`)
-          .style('left', `${d3.event.pageX}px`)
-          .style('top', `${d3.event.pageY}px`);
+          .style('opacity', 0.99)
+          .classed('hidden', false)
+          .style('left', `${d3.event.pageX + 30}px`)
+          .style('top', `${d3.event.pageY - 80}px`)
+          .html(htmlString);
+        d3
+          .select(this)
+          .attr('stroke-width', '2px')
+          .attr('stroke', '#2e006c');
       }
 
       function mouseleave() {
-        Tooltip.style('opacity', 0);
+        Tooltip
+          .style('opacity', 0)
+          .classed('hidden', true);
+        d3
+          .selectAll('path')
+          .attr('stroke', '#fff')
+          .attr('stroke-width', '1px');
       }
 
       svg.append('g')
@@ -67,6 +87,8 @@ export default {
         .data(topo.features)
         .enter()
         .append('path')
+        .attr('stroke', '#fff')
+        .attr('stroke-width', '1px')
         .attr('d', d3.geoPath()
           .projection(projection))
         .attr('fill', (d) => {
