@@ -30,7 +30,7 @@ export default {
         `translate(${margin.left},${margin.top})`);
     // const dataset = [];
 
-    d3.csv('./data/data_countries.csv', (data) => {
+    d3.csv('https://pierrejonin.github.io/bitcoin_consumption'.concat('/data/data_countries.csv'), (data) => {
       // Start Preprocessing
       let subgroups = ['Percentage_fossil', 'Percentage_nuclear', 'Percentage_hydroelectric', 'Percentage_renewable'];
       // sort country by their consumption
@@ -75,7 +75,7 @@ export default {
       // ----------------
       // Create a tooltip
       // ----------------
-      const tooltip = d3.select('body')
+      const tooltip = d3.select('div')
         .append('div')
         .style('position', 'absolute')
         .attr('class', 'tooltip')

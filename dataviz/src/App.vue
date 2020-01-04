@@ -11,6 +11,9 @@
               <router-link class="nav-link" to="/Companies">
                 Entreprises
               </router-link>
+              <router-link class="nav-link" to="/StackedBarChartView">
+                StackedBarChartView
+              </router-link>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->
