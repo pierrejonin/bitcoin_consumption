@@ -7,7 +7,7 @@ import * as d3 from 'd3';
 import * as d3Chromatic from 'd3-scale-chromatic';
 
 export default {
-  name: 'BarChart',
+  name: 'WorldMap',
   mounted() {
     // The svg
     const svg = d3.select('#my_dataviz')
