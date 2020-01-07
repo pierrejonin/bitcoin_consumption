@@ -14,6 +14,9 @@
               <router-link class="nav-link" to="/StackedBarChartView">
                 StackedBarChartView
               </router-link>
+              <router-link class="nav-link" to="/LineChartView">
+               LineChartView
+              </router-link>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->
