@@ -1,8 +1,10 @@
 <template>
-<div id="my_dataviz">
-  <div id="legende1"></div>
-  <div id="legende2"></div>
-</div>
+  <div id="my_dataviz">
+    <div id="legendes">
+      <div id="legende1"></div>
+      <div id="legende2"></div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -19,9 +21,24 @@ export default {
       .attr('height', 700)
       .attr('transform',
         `translate(${0},${0})`);
+
     const width = +svg.attr('width');
     const height = +svg.attr('height');
 
+    svg.append('text')
+      .attr('x', 500)
+      .attr('y', 590)
+      .attr('text-anchor', 'middle')
+      .style('font-size', '24px')
+      .style('text-decoration', 'underline')
+      .text('Bitcoin Electricity Consumption vs. Country Electricicty Consumption');
+
+    svg.append('text')
+      .attr('x', 500)
+      .attr('y', 610)
+      .attr('text-anchor', 'middle')
+      .style('font-size', '12px')
+      .text('Sources : CIA Factbook; Digiconomist');
     // eslint-disable-next-line no-unused-vars
     const path = d3.geoPath();
     const projection = d3.geoMercator()
@@ -44,7 +61,7 @@ export default {
     const h = 50;
     const keyBlue = d3.select('#legende1')
       .append('svg')
-      .attr('width', w)
+      .attr('width', w + 15)
       .attr('height', h);
 
     // pas touche
@@ -77,7 +94,7 @@ export default {
 
     const yBlue = d3.scaleLinear()
       .range([300, 0])
-      .domain([1, 0]);
+      .domain([100, 0]);
 
     const yAxisBlue = d3.axisBottom()
       .scale(yBlue)
@@ -97,7 +114,7 @@ export default {
     // Rouge
     const keyRed = d3.select('#legende2')
       .append('svg')
-      .attr('width', w)
+      .attr('width', w + 30)
       .attr('height', h);
 
     // pas touche
@@ -114,6 +131,11 @@ export default {
     legendRed.append('stop')
       .attr('offset', '0%')
       .attr('stop-color', colorScaleRed(1))
+      .attr('stop-opacity', 1);
+
+    legendRed.append('stop')
+      .attr('offset', '15%')
+      .attr('stop-color', colorScaleRed(13))
       .attr('stop-opacity', 1);
 
     legendRed.append('stop')
@@ -135,7 +157,7 @@ export default {
 
     const yRed = d3.scaleLinear()
       .range([300, 0])
-      .domain([200, 1]);
+      .domain([20000, 100]);
 
     const yAxisRed = d3.axisBottom()
       .scale(yRed)
@@ -242,4 +264,10 @@ export default {
 .bar-chart {
     background-color: #f1e6dd;
 }
+
+#legendes{
+  float : right;
+  padding-right : 20px;
+}
+
 </style>
