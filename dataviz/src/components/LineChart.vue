@@ -1,3 +1,7 @@
+<template>
+    <div id="my_dataviz">
+    </div>
+</template>
 <script>
 import * as d3 from 'd3';
 
@@ -25,7 +29,7 @@ export default {
     // append the svg obgect to the body of the page
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
-    const svg = d3.select('body').append('svg')
+    const svg = d3.select('#my_dataviz').append('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
@@ -33,7 +37,7 @@ export default {
         `translate(${margin.left},${margin.top})`);
 
     // Get the data
-    d3.csv('../data/data_processing/bitcoin_electric.csv', (error, data) => {
+    d3.csv(''.concat('../data/bitcoin_electric.csv'), (error, data) => {
       if (error) throw error;
 
       // format the data
@@ -59,7 +63,7 @@ export default {
         .attr('class', 'axis')
         .attr('transform', `translate(0,${height})`)
         .call(d3.axisBottom(x)
-          .tickFormat(d3.timeFormat('%B/%Y')))
+          .tickFormat(d3.timeFormat('%b %Y')))
         .selectAll('text')
         .style('text-anchor', 'end')
         .attr('dx', '-.8em')
@@ -70,6 +74,14 @@ export default {
       svg.append('g')
         .attr('class', 'axis')
         .call(d3.axisLeft(y));
+
+
+      svg.append('svg:line')
+        .attr('x1', 0)
+        .attr('x2', width)
+        .attr('y1', y(10))
+        .attr('y2', y(10))
+        .style('stroke', 'rgb(189, 189, 189)');
     });
   },
 };
