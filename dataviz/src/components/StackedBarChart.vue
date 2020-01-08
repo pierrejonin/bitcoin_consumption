@@ -101,7 +101,7 @@ export default {
         .style('border-radius', '5px')
         .style('padding', '5px')
         .style('pointer-events', 'none');
-
+      tooltip.style('opacity', 0);
       // Three function that change the tooltip when user hover / move / leave a cell
       function mouseover(d) {
         const subgroupName = d3.select(this.parentNode).datum().key;

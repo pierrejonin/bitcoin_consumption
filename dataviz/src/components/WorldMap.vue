@@ -187,7 +187,7 @@ export default {
         .style('border-radius', '5px')
         .style('padding', '5px')
         .style('pointer-events', 'none');
-
+      Tooltip.style('opacity', 0);
       function mouseover() {
         Tooltip
           .style('opacity', 0)
