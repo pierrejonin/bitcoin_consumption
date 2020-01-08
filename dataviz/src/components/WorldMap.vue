@@ -19,6 +19,29 @@ export default {
     const width = +svg.attr('width');
     const height = +svg.attr('height');
 
+
+    const legendCellSize = 20;
+    const colorss = ['#d4eac7', '#c6e3b5', '#b7dda2', '#a9d68f', '#9bcf7d', '#8cc86a', '#7ec157', '#77be4e', '#70ba45', '#65a83e', '#599537', '#4e8230', '#437029', '#385d22', '#2d4a1c', '#223815'];
+
+    const legend = svg.append('g')
+      .attr('transform', 'translate(40, 50)');
+
+    legend.selectAll()
+      .data(d3.range(colorss.length))
+      .enter().append('svg:rect')
+      .attr('height', `${legendCellSize}px`)
+      .attr('width', `${legendCellSize}px`)
+      .attr('x', 5)
+      .attr('y', (d) => d * legendCellSize)
+      .style('fill', (d) => colorss[d]);
+
+    const legendScale = d3.scaleLinear().domain([0, 100])
+      .range([0, colorss.length * legendCellSize]);
+
+    legend.append('g')
+      .attr('class', 'axis')
+      .call(d3.axisLeft(legendScale));
+
     // eslint-disable-next-line no-unused-vars
     const path = d3.geoPath();
     const projection = d3.geoMercator()
@@ -58,7 +81,7 @@ export default {
 
       function mousemove(d) {
         const total = data.get(d.properties.name) || 0;
-        const htmlString = `${d.properties.name}<br>${total}<br>${Number.parseFloat((75000000000 * 100) / total).toFixed(2)}`;
+        const htmlString = `<strong>${d.properties.name}</strong><br>Consommation : <i>${total} kWH</i><br>Rapport : <i>${Number.parseFloat((75000000000 / total).toFixed(2))}</i>`;
 
         Tooltip
           .style('opacity', 0.99)
