@@ -1,5 +1,8 @@
 <template>
-<div id="my_dataviz"></div>
+<div id="my_dataviz">
+  <div id="legende1"></div>
+  <div id="legende2"></div>
+</div>
 </template>
 
 <script>
@@ -35,6 +38,121 @@ export default {
     const colorScaleRed = d3.scaleSequential(d3Chromatic.interpolateReds)
       .domain([1, 200]);
 
+    // LEGENDES
+    // Bleu
+    const w = 300;
+    const h = 50;
+    const keyBlue = d3.select('#legende1')
+      .append('svg')
+      .attr('width', w)
+      .attr('height', h);
+
+    // pas touche
+    const legendBlue = keyBlue.append('defs')
+      .append('svg:linearGradient')
+      .attr('id', 'gradientB')
+      .attr('x1', '0%')
+      .attr('y1', '100%')
+      .attr('x2', '100%')
+      .attr('y2', '100%')
+      .attr('spreadMethod', 'pad');
+
+    // color départ
+    legendBlue.append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', colorScaleBlue(0))
+      .attr('stop-opacity', 1);
+
+    // color fin
+    legendBlue.append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', colorScaleBlue(1))
+      .attr('stop-opacity', 1);
+
+    keyBlue.append('rect')
+      .attr('width', w)
+      .attr('height', h - 30)
+      .style('fill', 'url(#gradientB)')
+      .attr('transform', 'translate(0,10)');
+
+    const yBlue = d3.scaleLinear()
+      .range([300, 0])
+      .domain([1, 0]);
+
+    const yAxisBlue = d3.axisBottom()
+      .scale(yBlue)
+      .ticks(5);
+
+    keyBlue.append('g')
+      .attr('class', 'y axis')
+      .attr('transform', 'translate(0,30)')
+      .call(yAxisBlue)
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', 0)
+      .attr('dy', '.71em')
+      .style('text-anchor', 'end')
+      .text('axis title');
+
+    // Rouge
+    const keyRed = d3.select('#legende2')
+      .append('svg')
+      .attr('width', w)
+      .attr('height', h);
+
+    // pas touche
+    const legendRed = keyRed.append('defs')
+      .append('svg:linearGradient')
+      .attr('id', 'gradient')
+      .attr('x1', '0%')
+      .attr('y1', '100%')
+      .attr('x2', '100%')
+      .attr('y2', '100%')
+      .attr('spreadMethod', 'pad');
+
+    // color départ
+    legendRed.append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', colorScaleRed(1))
+      .attr('stop-opacity', 1);
+
+    legendRed.append('stop')
+      .attr('offset', '80%')
+      .attr('stop-color', colorScaleRed(160))
+      .attr('stop-opacity', 1);
+
+    // color fin
+    legendRed.append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', colorScaleRed(250))
+      .attr('stop-opacity', 1);
+
+    keyRed.append('rect')
+      .attr('width', w)
+      .attr('height', h - 30)
+      .style('fill', 'url(#gradient)')
+      .attr('transform', 'translate(0,10)');
+
+    const yRed = d3.scaleLinear()
+      .range([300, 0])
+      .domain([200, 1]);
+
+    const yAxisRed = d3.axisBottom()
+      .scale(yRed)
+      .ticks(5);
+
+    keyRed.append('g')
+      .attr('class', 'y axis')
+      .attr('transform', 'translate(0,30)')
+      .call(yAxisRed)
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', 0)
+      .attr('dy', '.71em')
+      .style('text-anchor', 'end')
+      .text('axis title');
+
+    // FONCTIONS
     function ready(error, topo) {
       const Tooltip = d3.select('body')
         .append('div')
