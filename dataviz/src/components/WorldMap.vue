@@ -3,6 +3,19 @@
     <div id="legendes">
       <div id="legende1"></div>
       <div id="legende2"></div>
+      <div id="explication">
+        <br>
+        <b>Rapport en % =</b><br>
+        (Conso. du Bitcoin sur un an / Conso. du pays sur un an)*100
+        <br>
+        <br>
+        Les pays en <b class="blue">bleu</b> sont ceux dont la consommation en éléctricité
+        est <b class="blue">supérieure</b> ou égale à celle du Bitcoin (par an).
+        <br>
+        <br>
+        Les pays en <b class="red">rouge</b> sont ceux dont la consommation
+        en éléctricité est <b class="red">inférieure</b> à celle du Bitcoin (par an).
+      </div>
     </div>
   </div>
 </template>
@@ -200,7 +213,13 @@ export default {
 
       function mousemove(d) {
         const total = data.get(d.properties.name) || 0;
-        const htmlString = `<strong>${d.properties.name}</strong><br>Consommation : <i>${total.toLocaleString()} kWH</i><br>Rapport : <i>${Number.parseFloat((75000000000 / total).toFixed(2)) * 100}%</i>`;
+        let htmlString = '';
+
+        if (total === 0) {
+          htmlString = `<strong>${d.properties.name}</strong><br>Consommation : <i>/</i><br>Rapport : <i>/</i>`;
+        } else {
+          htmlString = `<strong>${d.properties.name}</strong><br>Consommation : <i>${total.toLocaleString()} kWH</i><br>Rapport : <i>${Number.parseFloat((75000000000 / total).toFixed(2)) * 100}%</i>`;
+        }
 
         Tooltip
           .style('opacity', 0.99)
@@ -265,9 +284,22 @@ export default {
     background-color: #f1e6dd;
 }
 
-#legendes{
+#legendes {
+  float : right;
+  padding-right : 0px;
+}
+
+#explication {
+  width: 330px;
   float : right;
   padding-right : 20px;
 }
 
+.blue {
+  color: blue;
+}
+
+.red {
+  color: red;
+}
 </style>
