@@ -4,10 +4,23 @@ const WebSocketClient = require('websocket').client;
 const axios = require('axios');
 const fs = require('fs');
 var client = new WebSocketClient(); 
+let coinbasesPath = "./public/data/coinbases.txt";
 
 app.get('/', function (req, res) {
   res.send('Hello World!')
 })
+
+function updateData() {
+    fs.readFile(coinbasesPath, 'utf-8', (err, data) => {
+        if (err) {
+            throw err;
+        } else {
+            
+        }
+    })
+}
+
+updateData();
 
 function hexToString(str)
 {
@@ -50,23 +63,23 @@ client.connect('wss://ws.blockchain.info/inv');
 function getBlockInfo(data) {
     let hash = data.x.hash;
     axios.get(`https://blockchain.info/rawblock/${hash}`)
-    .catch(function (error) {
-        console.log("Bloc pas encore dispo sur l'api.. on retente dans 5 min");
-        setTimeout(()=>{getBlockInfo(data)},600000,data);
-    })
     .then((res)=> {
         let txs = res.data.tx;
         let coinBase = hexToString(txs[0].inputs[0].script)
         console.log(coinBase)
-        fs.appendFileSync("./public/data/coinbases.txt", `${coinBase}\n`, function(err) {
+        fs.appendFileSync(coinbasesPath, `${coinBase}\n`, function(err) {
             if(err) {
                 return console.log(err);
             }
         });    
+    })
+    .catch(function (error) {
+        console.log("Bloc pas encore dispo sur l'api.. on retente dans 5 min");
+        setTimeout(()=>{getBlockInfo(data)},300000,data);
     });
 }
 
 
-app.listen(3000, function () {
 
+app.listen(3000, function () {
 })
