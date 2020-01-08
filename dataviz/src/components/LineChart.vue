@@ -37,7 +37,7 @@ export default {
         `translate(${margin.left},${margin.top})`);
 
     // Get the data
-    d3.csv(''.concat('../data/bitcoin_electric.csv'), (error, data) => {
+    d3.csv('https://pierrejonin.github.io/bitcoin_consumption'.concat('/data/bitcoin_electric.csv'), (error, data) => {
       if (error) throw error;
 
       // format the data

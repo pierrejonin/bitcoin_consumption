@@ -23,11 +23,26 @@ export default {
     // eslint-disable-next-line no-unused-vars
     const svg = d3.select('#my_dataviz')
       .append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
+      .attr('width', 1500 + margin.left + margin.right)
+      .attr('height', 800 + margin.top + margin.bottom)
       .append('g')
       .attr('transform',
         `translate(${margin.left},${margin.top})`);
+
+    svg.append('text')
+      .attr('x', 180)
+      .attr('y', 450)
+      .attr('text-anchor', 'middle')
+      .style('font-size', '24px')
+      .style('text-decoration', 'underline')
+      .text('Electric energy sources by Country');
+
+    svg.append('text')
+      .attr('x', 500)
+      .attr('y', 610)
+      .attr('text-anchor', 'middle')
+      .style('font-size', '12px')
+      .text('Sources : CIA Factbook; Digiconomist');
     // const dataset = [];
 
     d3.csv('https://pierrejonin.github.io/bitcoin_consumption'.concat('/data/data_countries.csv'), (data) => {
@@ -205,5 +220,8 @@ export default {
 </script>
 
 <style>
-
+#my_dataviz {
+  float : center;
+  padding-right : 20px;
+}
 </style>
