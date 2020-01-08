@@ -1,10 +1,9 @@
 <template>
-  <div id="home">
-    Wow !
-  </div>
+  <div id='companies'>Wow !</div>
 </template>
 
 <script>
+
 
 export default {
   name: 'Companies',
