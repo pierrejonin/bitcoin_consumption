@@ -81,7 +81,7 @@ export default {
 
       function mousemove(d) {
         const total = data.get(d.properties.name) || 0;
-        const htmlString = `${d.properties.name}<br>${total}<br>${Number.parseFloat((75000000000 * 100) / total).toFixed(2)}`;
+        const htmlString = `<strong>${d.properties.name}</strong><br>Consommation : <i>${total} kWH</i><br>Rapport : <i>${Number.parseFloat((75000000000 / total).toFixed(2))}</i>`;
 
         Tooltip
           .style('opacity', 0.99)
