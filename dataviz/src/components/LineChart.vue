@@ -9,9 +9,9 @@ export default {
   name: 'LineChart',
   mounted() {
     const margin = {
-      top: 20, right: 20, bottom: 300, left: 50,
+      top: 20, right: 20, bottom: 300, left: 80,
     };
-    const width = 960 - margin.left - margin.right;
+    const width = 990 - margin.left - margin.right;
     const height = 700 - margin.top - margin.bottom;
 
     // parse the date / time
@@ -103,11 +103,11 @@ export default {
         .append('text')
         .attr('class', 'axis-title')
         .attr('transform', 'rotate(-90)')
-        .attr('y', 6)
+        .attr('y', -50)
         .attr('dy', '.71em')
         .style('text-anchor', 'end')
         .attr('fill', '#5D6971')
-        .text('Consommation électrique annualisée(en TW/H))');
+        .text('Consommation électrique annualisée(en TW/H)');
 
       // First interest point
       g.append('circle')
