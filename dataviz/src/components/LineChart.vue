@@ -9,10 +9,10 @@ export default {
   name: 'LineChart',
   mounted() {
     const margin = {
-      top: 20, right: 20, bottom: 100, left: 50,
+      top: 20, right: 20, bottom: 300, left: 50,
     };
     const width = 960 - margin.left - margin.right;
-    const height = 500 - margin.top - margin.bottom;
+    const height = 700 - margin.top - margin.bottom;
 
     // parse the date / time
     const parseTime = d3.timeParse('%Y-%m-%dT%H:%M:%S');
@@ -31,8 +31,9 @@ export default {
     // moves the 'group' element to the top left margin
     const svg = d3.select('#my_dataviz').append('svg')
       .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .append('g')
+      .attr('height', height + margin.top + margin.bottom);
+
+    const g = svg.append('g')
       .attr('transform',
         `translate(${margin.left},${margin.top})`);
 
@@ -48,15 +49,22 @@ export default {
 
     svg.append('text')
       .attr('x', 500)
-      .attr('y', 610)
+      .attr('y', 550)
+      .attr('text-anchor', 'middle')
+      .style('font-size', '24px')
+      .style('text-decoration', 'underline')
+      .text('Consommation énergétique du Bitcoin au cours du temps');
+
+    svg.append('text')
+      .attr('x', 500)
+      .attr('y', 600)
       .attr('text-anchor', 'middle')
       .style('font-size', '12px')
-      .text('Sources : CIA Factbook; Digiconomist');
+      .text('Sources : CIA Factbook; University of Cambridge');
 
     // Get the data
     d3.csv('https://pierrejonin.github.io/bitcoin_consumption'.concat('/data/bitcoin_electric.csv'), (error, data) => {
       if (error) throw error;
-
       // format the data
       data.forEach((d) => {
         // eslint-disable-next-line no-param-reassign
@@ -70,13 +78,13 @@ export default {
       y.domain([0, d3.max(data, (d) => d.GUESS)]);
 
       // Add the valueline path.
-      svg.append('path')
+      g.append('path')
         .data([data])
         .attr('class', 'line')
         .attr('d', valueline);
 
       // Add the X Axis
-      svg.append('g')
+      g.append('g')
         .attr('class', 'axis')
         .attr('transform', `translate(0,${height})`)
         .call(d3.axisBottom(x)
@@ -89,12 +97,20 @@ export default {
         .attr('transform', 'rotate(-65)');
 
       // Add the Y Axis
-      svg.append('g')
+      g.append('g')
         .attr('class', 'axis')
-        .call(d3.axisLeft(y));
+        .call(d3.axisLeft(y))
+        .append('text')
+        .attr('class', 'axis-title')
+        .attr('transform', 'rotate(-90)')
+        .attr('y', 6)
+        .attr('dy', '.71em')
+        .style('text-anchor', 'end')
+        .attr('fill', '#5D6971')
+        .text('Consommation électrique annualisée(en TW/H))');
 
       // First interest point
-      svg.append('circle')
+      g.append('circle')
         .attr('id', 'circle1')
         .attr('cx', x(new Date(2016, 0, 29)))
         .attr('cy', y(4.7181))
@@ -127,7 +143,7 @@ export default {
         .on('mouseleave', mouseleave1);
 
       // Second interest point
-      svg.append('circle')
+      g.append('circle')
         .attr('id', 'circle2')
         .attr('cx', x(new Date(2018, 10, 3)))
         .attr('cy', y(51.673))
@@ -160,7 +176,7 @@ export default {
         .on('mouseleave', mouseleave2);
 
       // Third interest point
-      svg.append('circle')
+      g.append('circle')
         .attr('id', 'circle3')
         .attr('cx', x(new Date(2017, 6, 14)))
         .attr('cy', y(14.0462))
@@ -193,7 +209,7 @@ export default {
         .on('mouseleave', mouseleave3);
 
       // Fourth interest point
-      svg.append('circle')
+      g.append('circle')
         .attr('id', 'circle4')
         .attr('cx', x(new Date(2019, 8, 22)))
         .attr('cy', y(80.2968))
@@ -225,7 +241,7 @@ export default {
         .on('mouseleave', mouseleave4);
 
       // Fifth interest point
-      svg.append('circle')
+      g.append('circle')
         .attr('id', 'circle5')
         .attr('cx', x(new Date(2018, 1, 7)))
         .attr('cy', y(38.4544))
@@ -240,7 +256,7 @@ export default {
       };
       const mousemove5 = function m() {
         Tooltip
-          .html('Eclatement de la <br> bulle de début 2018. <br> Le bitcoin consomme <br> plus que l\'Irak')
+          .html('Eclatement de la <br> bulle au début 2018. <br> Le bitcoin consomme <br> plus que l\'Irak')
           .style('text-align', 'center')
           .style('left', `${d3.mouse(this)[0] - 30}px`)
           .style('top', `${d3.mouse(this)[1] - 50}px`);
@@ -258,7 +274,7 @@ export default {
         .on('mouseleave', mouseleave5);
 
       // Sixth interest point
-      svg.append('circle')
+      g.append('circle')
         .attr('id', 'circle6')
         .attr('cx', x(new Date(2019, 8, 22)))
         .attr('cy', y(80.2968))
@@ -291,7 +307,7 @@ export default {
         .on('mouseleave', mouseleave6);
 
       // Seventh interest point
-      svg.append('circle')
+      g.append('circle')
         .attr('id', 'circle7')
         .attr('cx', x(new Date(2020, 0, 3)))
         .attr('cy', y(74.3374))
@@ -322,6 +338,56 @@ export default {
         .on('mouseover', mouseover7)
         .on('mousemove', mousemove7)
         .on('mouseleave', mouseleave7);
+
+      g.append('line')
+        .style('stroke', 'grey')
+        .style('z-index', -1)
+        .attr('x1', 0)
+        .attr('y1', y(10))
+        .attr('x2', width)
+        .attr('y2', y(10));
+      g.append('line')
+        .style('stroke', 'grey')
+        .attr('x1', 0)
+        .attr('y1', y(20))
+        .attr('x2', width)
+        .attr('y2', y(20));
+      g.append('line')
+        .style('stroke', 'grey')
+        .attr('x1', 0)
+        .attr('y1', y(30))
+        .attr('x2', width)
+        .attr('y2', y(30));
+      g.append('line')
+        .style('stroke', 'grey')
+        .attr('x1', 0)
+        .attr('y1', y(40))
+        .attr('x2', width)
+        .attr('y2', y(40));
+      g.append('line')
+        .style('stroke', 'grey')
+        .attr('x1', 0)
+        .attr('y1', y(50))
+        .attr('x2', width)
+        .attr('y2', y(50));
+      g.append('line')
+        .style('stroke', 'grey')
+        .attr('x1', 0)
+        .attr('y1', y(60))
+        .attr('x2', width)
+        .attr('y2', y(60));
+      g.append('line')
+        .style('stroke', 'grey')
+        .attr('x1', 0)
+        .attr('y1', y(70))
+        .attr('x2', width)
+        .attr('y2', y(70));
+      g.append('line')
+        .style('stroke', 'grey')
+        .attr('x1', 0)
+        .attr('y1', y(80))
+        .attr('x2', width)
+        .attr('y2', y(80));
     });
   },
 };
