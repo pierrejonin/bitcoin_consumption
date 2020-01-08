@@ -4,6 +4,7 @@ import Companies from './views/Companies.vue';
 import WorldMapView from './views/WorldMapView.vue';
 import StackedBarChartView from './views/StackedBarChartView.vue';
 import LineChartView from './views/LineChartView.vue';
+import ProjectView from './views/Project.vue';
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/LineChartView',
       name: 'LineChartView',
       component: LineChartView,
+    },
+    {
+      path: '/',
+      name: 'ProjectView',
+      component: ProjectView,
     },
   ],
 });

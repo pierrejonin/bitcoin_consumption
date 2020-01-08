@@ -2,7 +2,7 @@
   <div id="app">
     <div>
       <b-navbar toggleable="lg" type="dark" variant="info">
-        <b-navbar-brand href="#">Projet DataViz - BTC</b-navbar-brand>
+        <b-navbar-brand href="#" to="/">Projet DataViz - BTC</b-navbar-brand>
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
               <router-link class="nav-link" to="/WorldMapView">
