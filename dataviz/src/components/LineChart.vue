@@ -36,6 +36,17 @@ export default {
       .attr('transform',
         `translate(${margin.left},${margin.top})`);
 
+    const Tooltip = d3.select('#my_dataviz')
+      .append('div')
+      .style('opacity', 0)
+      .attr('class', 'tooltip')
+      .style('background-color', 'lightblue')
+      .style('border', 'solid')
+      .style('border-width', '2px')
+      .style('border-radius', '5px')
+      .style('padding', '5px');
+
+
     // Get the data
     d3.csv('https://pierrejonin.github.io/bitcoin_consumption'.concat('/data/bitcoin_electric.csv'), (error, data) => {
       if (error) throw error;
@@ -75,13 +86,133 @@ export default {
         .attr('class', 'axis')
         .call(d3.axisLeft(y));
 
+      // First interest point
+      svg.append('circle')
+        .attr('id', 'circle1')
+        .attr('cx', x(new Date(2017, 4, 23)))
+        .attr('cy', y(10.048))
+        .attr('r', 5)
+        .attr('fill', '#69b3a2');
+      const mouseover1 = function o() {
+        Tooltip
+          .style('opacity', 1);
+        d3.select(this)
+          .style('stroke', 'black')
+          .style('opacity', 1);
+      };
+      const mousemove1 = function m() {
+        Tooltip
+          .html('a')
+          .style('left', `${d3.mouse(this)[0] - 50}px`)
+          .style('top', `${d3.mouse(this)[1]}px`);
+      };
+      const mouseleave1 = function l() {
+        Tooltip
+          .style('opacity', 0);
+        d3.select(this)
+          .style('stroke', 'none')
+          .style('opacity', 0.8);
+      };
+      d3.select('#circle1')
+        .on('mouseover', mouseover1)
+        .on('mousemove', mousemove1)
+        .on('mouseleave', mouseleave1);
 
-      svg.append('svg:line')
-        .attr('x1', 0)
-        .attr('x2', width)
-        .attr('y1', y(10))
-        .attr('y2', y(10))
-        .style('stroke', 'rgb(189, 189, 189)');
+      // Second interest point
+      svg.append('circle')
+        .attr('id', 'circle2')
+        .attr('cx', x(new Date(2017, 4, 23)))
+        .attr('cy', y(10.048))
+        .attr('r', 5)
+        .attr('fill', '#69b3a2');
+      const mouseover2 = function o() {
+        Tooltip
+          .style('opacity', 1);
+        d3.select(this)
+          .style('stroke', 'black')
+          .style('opacity', 1);
+      };
+      const mousemove2 = function m() {
+        Tooltip
+          .html('b')
+          .style('left', `${d3.mouse(this)[0] - 50}px`)
+          .style('top', `${d3.mouse(this)[1]}px`);
+      };
+      const mouseleave2 = function l() {
+        Tooltip
+          .style('opacity', 0);
+        d3.select(this)
+          .style('stroke', 'none')
+          .style('opacity', 0.8);
+      };
+      d3.select('#circle2')
+        .on('mouseover', mouseover2)
+        .on('mousemove', mousemove2)
+        .on('mouseleave', mouseleave2);
+
+      // Third interest point
+      svg.append('circle')
+        .attr('id', 'circle3')
+        .attr('cx', x(new Date(2017, 4, 23)))
+        .attr('cy', y(10.048))
+        .attr('r', 5)
+        .attr('fill', '#69b3a2');
+      const mouseover3 = function o() {
+        Tooltip
+          .style('opacity', 1);
+        d3.select(this)
+          .style('stroke', 'black')
+          .style('opacity', 1);
+      };
+      const mousemove3 = function m() {
+        Tooltip
+          .html('c')
+          .style('left', `${d3.mouse(this)[0] - 30}px`)
+          .style('top', `${d3.mouse(this)[1] + 30}px`);
+      };
+      const mouseleave3 = function l() {
+        Tooltip
+          .style('opacity', 0);
+        d3.select(this)
+          .style('stroke', 'none')
+          .style('opacity', 0.8);
+      };
+      d3.select('#circle1')
+        .on('mouseover', mouseover3)
+        .on('mousemove', mousemove3)
+        .on('mouseleave', mouseleave3);
+
+      // Fourth interest point
+      svg.append('circle')
+        .attr('id', 'circle4')
+        .attr('cx', x(new Date(2019, 8, 22)))
+        .attr('cy', y(80.2968))
+        .attr('r', 5)
+        .attr('fill', '#69b3a2');
+      const mouseover4 = function o() {
+        Tooltip
+          .style('opacity', 1);
+        d3.select(this)
+          .style('stroke', 'black')
+          .style('opacity', 1);
+      };
+      const mousemove4 = function m() {
+        Tooltip
+          .html('Max conso')
+          .style('left', `${d3.mouse(this)[0] - 30}px`)
+          .style('top', `${d3.mouse(this)[1] + 30}px`);
+      };
+      const mouseleave4 = function l() {
+        Tooltip
+          .style('opacity', 0);
+        d3.select(this)
+          .style('stroke', 'none')
+          .style('opacity', 0.8);
+      };
+      d3.select('#circle4')
+        .on('mouseover', mouseover4)
+        .on('mousemove', mousemove4)
+        .on('mouseleave', mouseleave4);
     });
   },
 };
