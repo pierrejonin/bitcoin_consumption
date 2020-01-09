@@ -9,7 +9,7 @@ let actualCsvId = '1V-2hul0_KF5agQPGA7FJlWRFWLc5UWneJ4_ZZnmj5yM';
 let currentRange = 2;
 
 var client = new WebSocketClient();
-const daysLimit = 6;
+const daysLimit = 7;
 
 app.get('/', function (req, res) {
   res.send('Hello World!')
@@ -85,6 +85,9 @@ async function getBlockInfo(data, fromTwo = false, date = null, tWait = false) {
   return new Promise((resolve, reject) => {
     let hash = "";
     fromTwo ? hash = data : hash = data.x.hash;
+    if (data.op != null) {
+      hash = data.x.hash;
+    }
     if (date == null) {
       date = new Date(Date.now());
     }
@@ -174,6 +177,7 @@ function storeFiles(auth, dataBTC) {
 
   sheets.spreadsheets.get(request, (err, response) => {
     if (err) {
+      console.log("ERRREUR NON TROUVEE !!!");
       sheets.spreadsheets.create({
         resource: {
           properties: {
@@ -219,7 +223,8 @@ function storeFiles(auth, dataBTC) {
           // Handle error
           console.error(err);
         } else {
-          console.log(response);
+          // console.log(response);
+          console.log("done");
           currentRange += 1;
         }
       });

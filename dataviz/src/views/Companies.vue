@@ -1,14 +1,14 @@
 <template>
-  <CompaniesMap />
+  <CompaniesDonut class="firstDiv"/>
 </template>
 
 <script>
-import CompaniesMap from '../components/CompaniesMap.vue';
+import CompaniesDonut from '../components/CompaniesDonut.vue';
 
 export default {
   name: 'Companies',
   components: {
-    CompaniesMap,
+    CompaniesDonut,
   },
   data() {
     return {
@@ -31,3 +31,18 @@ export default {
   },
 };
 </script>
+
+<style>
+.firstDiv {
+  animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+ 0% {opacity: 0;}
+ 25% {opacity: 0.2;}
+ 50% {opacity: 0.4;}
+ 75% {opacity: 0.6;}
+ 100% {opacity: 1;}
+}
+
+</style>
