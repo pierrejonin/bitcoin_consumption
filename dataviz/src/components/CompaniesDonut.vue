@@ -18,27 +18,54 @@
 /* eslint no-unused-expressions: 0 */
 /* eslint no-unused-vars: 0 */
 /* eslint eqeqeq: 0 */
+/* eslint quote-props: 0 */
 
 import * as d3 from 'd3';
 
 export default {
   name: 'CompaniesDonut',
+  methods: {
+    reloadVue() {
+      this.$forceUpdate();
+    },
+    connect() {
+      this.socket = new WebSocket('wss://ws.blockchain.info/inv');
+      this.socket.onopen = () => {
+        this.socket.send('{"op":"blocks_sub"}');
+        this.socket.onmessage = ({ data }) => {
+          this.reloadVue();
+        };
+      };
+    },
+  },
   mounted() {
-    const gdriveLink = 'https://docs.google.com/spreadsheets/d/1V-2hul0_KF5agQPGA7FJlWRFWLc5UWneJ4_ZZnmj5yM/export?format=csv&id=1V-2hul0_KF5agQPGA7FJlWRFWLc5UWneJ4_ZZnmj5yM&gid=0';
-
+    const gdriveLink = 'https://docs.google.com/spreadsheets/u/0/d/1gw_V0IF139kLkQ96k2WNdU1bTobevqlnI_80kYUeic0/export?format=csv&id=1gw_V0IF139kLkQ96k2WNdU1bTobevqlnI_80kYUeic0&gid=0';
+    this.connect();
     const myPools = ['AntPool', 'Poolin', 'Huobi', 'BTC.COM', 'Okex', 'SpiderPool',
-      'NovaBlock', 'BitFury', 'bytepool', '🐟', 'Inconnu'];
+      'NovaBlock', 'BitFury', 'bytepool', 'viaBTC', '🐟', 'BTC.TOP', 'Inconnu'];
+
+    const countries = {
+      'AntPool': ['China - 🇨🇳'],
+      'Huobi': ['China - 🇨🇳'],
+      'BTC.COM': ['Europe - 🇪🇺', 'USA - 🇺🇸', 'China - 🇨🇳'],
+      'SpiderPool': ['China - 🇨🇳'],
+      'BitFury': ['Netherlands - 🇳🇱'],
+      'bytepool': ['China - 🇨🇳'],
+      'F2Pool': ['Europe - 🇪🇺', 'USA - 🇺🇸', 'China - 🇨🇳'],
+      'Poolin': ['China - 🇨🇳'],
+    };
+
     const freq = {};
     const dataset = [];
     let maxFreq = -1;
     let total = -1;
 
-    const height = 550;
+    const height = 600;
     const width = 960;
     const margin = 20;
 
     const svg = d3.select('svg.cam').attr('width', width).attr('height', height);
-    const camembert = svg.append('g').attr('transform', `translate(${width / 2.5},${height / 2})`);
+    const camembert = svg.append('g').attr('transform', `translate(${width / 2.2},${height / 2.2})`);
 
     const tooltip = d3.select('.donut')
       .append('div')
@@ -52,7 +79,7 @@ export default {
       freq[pool] = 0;
     }
 
-    d3.csv(gdriveLink, (data) => {
+    d3.csv(`${gdriveLink}`, (data) => {
       data.forEach((d) => {
         let trouve = false;
         for (const pool of myPools) {
@@ -99,30 +126,31 @@ export default {
           const mousePosition = d3.mouse(d3.event.currentTarget);
           tooltip.classed('hidden', false)
             .attr('style', `left:${mousePosition[0] + width / 3}px; top:${mousePosition[1] + height / 2}px`)
-            .html(`Nom de la pool : ${d.data.name == '🐟' ? 'P2Pool' : d.data.name}<br>Bitcoins minés : ${d.data.value}`);
+            .html(`Pool's name : ${d.data.name == '🐟' ? 'P2Pool' : d.data.name}<br>Bitcoins mined : ${d.data.value * 12.5}
+              <br>Countries : ${countries[d.data.name] != undefined ? countries[d.data.name] : 'Unknown'}`);
         })
         .on('mouseout', () => {
           tooltip.classed('hidden', true);
         });
       svg.selectAll('g')
         .attr('font-family', 'sans-serif')
-        .attr('font-size', 15)
+        .attr('font-size', 11)
         .attr('text-anchor', 'middle')
         .selectAll('text')
         .data(arcs)
         .enter()
         .append('text')
         .attr('transform', (d) => `translate(${arcLabel.centroid(d)}) rotate(33)`)
-        .text((d) => `${d.data.name.slice(0, 3)} ${(Math.round((d.data.value / total) * 100)).toLocaleString()} %`);
+        .text((d) => `${d.data.name.slice(0, 5)} ${(Math.round((d.data.value / total) * 100)).toLocaleString()} %`);
       svg.append('text')
-        .attr('x', width / 2.5)
+        .attr('x', width / 2.05)
         .attr('y', height * 0.99)
         .attr('text-anchor', 'middle')
         .style('font-size', '24px')
-        .text('Repartition of the mining pools for the last 7 days');
+        .text('Repartition of the mining sources for the last 5 days');
       svg.append('text')
-        .attr('x', width / 3.05)
-        .attr('y', height / 1.29)
+        .attr('x', width / 2.65)
+        .attr('y', height / 1.4)
         .attr('text-anchor', 'middle')
         .attr('fill', '#F5C52C')
         .style('font-size', '200px')
@@ -156,7 +184,7 @@ div.tooltip {
 .desc {
   position: fixed;
   top: 100px;
-  left: 900px;
+  left: 980px;
   width: 250px;
 }
 

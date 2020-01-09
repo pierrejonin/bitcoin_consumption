@@ -5,11 +5,11 @@ const axios = require('axios');
 const fs = require('fs');
 const readline = require('readline');
 const { google } = require('googleapis')
-let actualCsvId = '1V-2hul0_KF5agQPGA7FJlWRFWLc5UWneJ4_ZZnmj5yM';
+let actualCsvId = '1gw_V0IF139kLkQ96k2WNdU1bTobevqlnI_80kYUeic0';
 let currentRange = 2;
 
 var client = new WebSocketClient();
-const daysLimit = 7;
+const daysLimit = 1;
 
 app.get('/', function (req, res) {
   res.send('Hello World!')
@@ -37,7 +37,7 @@ client.on('connect', function (connection) {
 
   connection.on('message', function (message) {
     if (message.type === 'utf8') {
-      getBlockInfo(JSON.parse(message.utf8Data), tWait = true)
+      getBlockInfo(JSON.parse(message.utf8Data).x.hash, tWait = true)
     }
   });
 
@@ -49,11 +49,11 @@ client.on('connect', function (connection) {
   subToBlocks();
 });
 
-function getTwoWeeks() {
+function getOldBlocks() {
   return new Promise((resolve, reject) => {
     const reqString = 'https://blockchain.info/blocks/';
     let aTimeStamp = Date.now();
-    let total = 0, done = 0;
+    let total =  0, done = 0;
     for (let i = 0; i < daysLimit; i += 1) {
       aTimeStamp = aTimeStamp - (i * 3600 * 24 * 1000)
       const d = new Date(aTimeStamp);
@@ -61,38 +61,35 @@ function getTwoWeeks() {
       axios.get(req)
         .then(async (res) => {
           let blocks = res.data.blocks;
-          total += blocks.length - 5;
+          total += blocks.length;
+          console.log(total);
           for (let block in blocks) {
-            let r = await getBlockInfo(blocks[block].hash, true, d, false);
+            let r = await getBlockInfo(blocks[block].hash, d);
             console.log(done);
             done += r;
             if (done == total) {
-              console.log(done);
+              console.log("Tous les blocks ont été récups");
               resolve(true);
               return null;
             }
           }
         })
         .catch(function (error) {
-          console.log("Bloc pas encore dispo sur l'api.. on retente dans 5 min");
+          console.log(error);
           setTimeout(() => { getBlockInfo(data) }, 300000, data);
         });
     }
   })
 }
 
-async function getBlockInfo(data, fromTwo = false, date = null, tWait = false) {
+async function getBlockInfo(data, date = null, tWait = false) {
   return new Promise((resolve, reject) => {
-    let hash = "";
-    fromTwo ? hash = data : hash = data.x.hash;
-    if (data.op != null) {
-      hash = data.x.hash;
-    }
+    let hash = data;
     if (date == null) {
       date = new Date(Date.now());
     }
     if (tWait) {
-      setTimeout(()=>{}, 2000)
+      setTimeout(()=>{},60000);
     }
     axios.get(`https://blockchain.info/rawblock/${hash}`)
       .then((res) => {
@@ -103,16 +100,13 @@ async function getBlockInfo(data, fromTwo = false, date = null, tWait = false) {
       })
       .catch(function (error) {
         console.log(error.response);
-        console.log(hash);
-        // Pas sur de ça mais bon go toast
-        let date = new Date(Date.now());
-        setTimeout(() => { getBlockInfo(data) }, 200000, data, date);
+        resolve(1);
       });
   })
 }
 
 app.listen(3000, async function () {
-  await getTwoWeeks();
+  await getOldBlocks();
   // On se connect à l'api de blockchain.info pour avoir une notif à chaque block miné
   client.connect('wss://ws.blockchain.info/inv');
 })
@@ -167,11 +161,11 @@ function getAccessToken(oAuth2Client, callback) {
 }
 
 function storeFiles(auth, dataBTC) {
-  console.log("auth", JSON.stringify(auth));
+  // console.log("auth", JSON.stringify(auth));
   const sheets = google.sheets({ version: 'v4', auth });
   let request = {
     spreadsheetId: actualCsvId,
-    includeGridData: false,  // TODO: Update placeholder value.
+    includeGridData: false,  
     auth: auth,
   };
 
@@ -196,23 +190,16 @@ function storeFiles(auth, dataBTC) {
       });
     } else {
       let request = {
-        // The ID of the spreadsheet to update.
         spreadsheetId: actualCsvId,  // TODO: Update placeholder value.
-
         resource: {
-          // How the input data should be interpreted.
-          valueInputOption: 'RAW',  // TODO: Update placeholder value.
-
-          // The new values to apply to the spreadsheet.
+          valueInputOption: 'RAW',
           data: [{
             "range": `A${currentRange}:B${currentRange}`,
             "majorDimension": "ROWS",
             values: [
               dataBTC
             ]
-          }],  // TODO: Update placeholder value.
-
-          // TODO: Add desired properties to the request body.
+          }],  
         },
 
         auth: auth,
@@ -224,7 +211,6 @@ function storeFiles(auth, dataBTC) {
           console.error(err);
         } else {
           // console.log(response);
-          console.log("done");
           currentRange += 1;
         }
       });
