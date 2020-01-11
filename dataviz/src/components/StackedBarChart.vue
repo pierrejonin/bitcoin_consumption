@@ -1,9 +1,11 @@
 <template>
     <div id="my_dataviz">
-      <button id="fossil">Fossil</button>
-      <button id="nuclear">Nuclear</button>
-      <button id="hydroelectric">Hydroelectric</button>
-      <button id="renewable">Renewable</button>
+      <div id="buttons">
+        <button id="fossil">Fossil</button>
+        <button id="nuclear">Nuclear</button>
+        <button id="hydroelectric">Hydroelectric</button>
+        <button id="renewable">Renewable</button>
+      </div>
     </div>
 </template>
 
@@ -29,6 +31,35 @@ export default {
       .attr('transform',
         `translate(${margin.left},${margin.top})`);
 
+    const colors = new Map([
+      ['black', '#373534'],
+      ['red', '#FF2700'],
+      ['blue', '#0A98EE'],
+      ['green', '#41C626'],
+    ]);
+
+    svg.append('circle').attr('cx', 400).attr('cy', 130).attr('r', 6)
+      .style('fill', colors.get('black'));
+    svg.append('circle').attr('cx', 400).attr('cy', 160).attr('r', 6)
+      .style('fill', colors.get('red'));
+    svg.append('circle').attr('cx', 400).attr('cy', 190).attr('r', 6)
+      .style('fill', colors.get('blue'));
+    svg.append('circle').attr('cx', 400).attr('cy', 220).attr('r', 6)
+      .style('fill', colors.get('green'));
+
+    svg.append('text').attr('x', 420).attr('y', 130).text('Fossil')
+      .style('font-size', '15px')
+      .attr('alignment-baseline', 'middle');
+    svg.append('text').attr('x', 420).attr('y', 160).text('Nuclear')
+      .style('font-size', '15px')
+      .attr('alignment-baseline', 'middle');
+    svg.append('text').attr('x', 420).attr('y', 190).text('Hydroelectric')
+      .style('font-size', '15px')
+      .attr('alignment-baseline', 'middle');
+    svg.append('text').attr('x', 420).attr('y', 220).text('Renewable')
+      .style('font-size', '15px')
+      .attr('alignment-baseline', 'middle');
+
     svg.append('text')
       .attr('x', 180)
       .attr('y', 450)
@@ -38,8 +69,8 @@ export default {
       .text('Electric energy sources by Country');
 
     svg.append('text')
-      .attr('x', 500)
-      .attr('y', 610)
+      .attr('x', 180)
+      .attr('y', 475)
       .attr('text-anchor', 'middle')
       .style('font-size', '12px')
       .text('Sources : CIA Factbook; Digiconomist');
@@ -84,7 +115,7 @@ export default {
       // eslint-disable-next-line no-unused-vars
       let color = d3.scaleOrdinal()
         .domain(subgroups)
-        .range(['black', 'red', 'blue', 'green']);
+        .range([colors.get('black'), colors.get('red'), colors.get('blue'), colors.get('green')]);
 
 
       // ----------------
@@ -174,7 +205,7 @@ export default {
         subgroups = ['Percentage_fossil', 'Percentage_nuclear', 'Percentage_hydroelectric', 'Percentage_renewable'];
         color = d3.scaleOrdinal()
           .domain(subgroups)
-          .range(['black', 'red', 'blue', 'green']);
+          .range([colors.get('black'), colors.get('red'), colors.get('blue'), colors.get('green')]);
         topCountries.sort((a, b) => b.Percentage_fossil - a.Percentage_fossil);
         groups = [];
         topCountries.forEach((element) => groups.push(element.Country));
@@ -185,7 +216,7 @@ export default {
         subgroups = ['Percentage_nuclear', 'Percentage_fossil', 'Percentage_hydroelectric', 'Percentage_renewable'];
         color = d3.scaleOrdinal()
           .domain(subgroups)
-          .range(['red', 'black', 'blue', 'green']);
+          .range([colors.get('red'), colors.get('black'), colors.get('blue'), colors.get('green')]);
         topCountries.sort((a, b) => b.Percentage_nuclear - a.Percentage_nuclear);
         groups = [];
         topCountries.forEach((element) => groups.push(element.Country));
@@ -196,7 +227,7 @@ export default {
         subgroups = ['Percentage_hydroelectric', 'Percentage_fossil', 'Percentage_nuclear', 'Percentage_renewable'];
         color = d3.scaleOrdinal()
           .domain(subgroups)
-          .range(['blue', 'black', 'red', 'green']);
+          .range([colors.get('blue'), colors.get('black'), colors.get('red'), colors.get('green')]);
         topCountries.sort((a, b) => b.Percentage_hydroelectric - a.Percentage_hydroelectric);
         groups = [];
         topCountries.forEach((element) => groups.push(element.Country));
@@ -207,7 +238,7 @@ export default {
         subgroups = ['Percentage_renewable', 'Percentage_fossil', 'Percentage_hydroelectric', 'Percentage_nuclear'];
         color = d3.scaleOrdinal()
           .domain(subgroups)
-          .range(['green', 'black', 'blue', 'red']);
+          .range([colors.get('green'), colors.get('black'), colors.get('blue'), colors.get('red')]);
         topCountries.sort((a, b) => b.Percentage_renewable - a.Percentage_renewable);
         groups = [];
         topCountries.forEach((element) => groups.push(element.Country));
