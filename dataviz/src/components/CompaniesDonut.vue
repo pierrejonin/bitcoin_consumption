@@ -41,8 +41,8 @@ export default {
   mounted() {
     const gdriveLink = 'https://docs.google.com/spreadsheets/u/0/d/1gw_V0IF139kLkQ96k2WNdU1bTobevqlnI_80kYUeic0/export?format=csv&id=1gw_V0IF139kLkQ96k2WNdU1bTobevqlnI_80kYUeic0&gid=0';
     this.connect();
-    const myPools = ['AntPool', 'Poolin', 'Huobi', 'BTC.COM', 'Okex', 'SpiderPool',
-      'NovaBlock', 'BitFury', 'bytepool', 'viaBTC', '🐟', 'BTC.TOP', 'Inconnu'];
+    const myPools = ['AntPool', 'Poolin', 'Huobi', 'BTC.COM', 'Okex',
+      'BitFury', 'bytepool', 'viaBTC', '🐟', 'BTC.TOP', 'Inconnu'];
 
     const countries = {
       'AntPool': ['China - 🇨🇳'],
@@ -60,7 +60,7 @@ export default {
     let maxFreq = -1;
     let total = -1;
 
-    const height = 600;
+    const height = 650;
     const width = 960;
     const margin = 20;
 
@@ -99,28 +99,31 @@ export default {
       maxFreq = d3.max(freqs);
       total = freqs.reduce((acc, current) => acc + current);
       const size = d3.scaleLinear().domain([0, maxFreq]);
-      const arcs = pie(dataset);
+      const dataProcessed = pie(dataset);
       let radius = Math.min(width, height) / 2 - margin;
       // The arc generator
       const arc = d3.arc()
         .innerRadius(radius * 0.6)
         .outerRadius(radius * 0.8);
+      const arc2 = d3.arc()
+        .innerRadius(radius * 0.9)
+        .outerRadius(radius * 0.9);
 
       radius = Math.min(width, height) / 2.5;
       const arcLabel = d3.arc().innerRadius(radius).outerRadius(radius);
-
       const color = d3.scaleLinear()
         .domain([0, maxFreq])
         .range(['#ecfcff', '#3e64ff']);
 
       svg.selectAll('g')
         .selectAll('slices')
-        .data(arcs)
+        .data(dataProcessed)
         .enter()
         .append('path')
         .attr('fill', (d) => color(d.data.value))
         .attr('d', arc)
         .attr('stroke', 'white')
+        .attr('transform', 'translate(0,25)')
         .style('stroke-width', '2px')
         .on('mousemove', (d) => {
           const mousePosition = d3.mouse(d3.event.currentTarget);
@@ -132,16 +135,39 @@ export default {
         .on('mouseout', () => {
           tooltip.classed('hidden', true);
         });
+      svg.selectAll('allPolylines')
+        .data(dataProcessed)
+        .enter()
+        .append('polyline')
+        .attr('stroke', 'black')
+        .style('fill', 'none')
+        .attr('stroke-width', 1)
+        .attr('points', (d) => {
+          const posA = arc.centroid(d);
+          const posB = arc2.centroid(d);
+          const posC = arc2.centroid(d);
+          const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
+          posC[0] = radius * 0.98 * (midangle < Math.PI ? 1 : -1); -1;
+          return [posA, posB, posC];
+        })
+        .attr('transform', `translate(${width / 2.2},${height / 2})`);
       svg.selectAll('g')
         .attr('font-family', 'sans-serif')
         .attr('font-size', 11)
         .attr('text-anchor', 'middle')
-        .selectAll('text')
-        .data(arcs)
+        .selectAll('labels')
+        .data(dataProcessed)
         .enter()
         .append('text')
-        .attr('transform', (d) => `translate(${arcLabel.centroid(d)}) rotate(33)`)
-        .text((d) => `${d.data.name.slice(0, 5)} ${(Math.round((d.data.value / total) * 100)).toLocaleString()} %`);
+        .text((d) => `${d.data.name}`)
+        .attr('transform', (d) => {
+          const pos = arc2.centroid(d);
+          const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
+          pos[0] = radius * 1 * (midangle < Math.PI ? 1 : -1) + 2;
+          pos[1] += 28;
+          return `translate(${pos})`;
+        })
+        .attr('padding', '10px;');
       svg.append('text')
         .attr('x', width / 2.05)
         .attr('y', height * 0.99)
