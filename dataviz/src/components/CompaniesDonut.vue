@@ -1,16 +1,28 @@
 
 <template>
-  <div class="donut">
-    <svg class="cam"></svg>
-    <div class="desc">
-      <span>
-        A mining pool is a groupement of cryptocurrency miners. They group to have a greater
-        mining power. Since the biggest mining power has more chance to be rewarded for
-        mining the next block, it's totally in their interest to group. Moreover, we are not able to
-        know who mined every block. Indeed, only miners who chose to sign can be retrieved.
-      </span>
-    </div>
-  </div>
+  <b-container class="donut">
+    <b-row>
+        <b-col cols="7">
+          <svg class="cam"></svg>
+        </b-col>
+        <b-col>
+          <span class="legende">
+            <div>
+              A mining pool is a groupement of cryptocurrency miners. They group to have a greater
+              mining power. Since the biggest mining power has more chance to be rewarded for
+              mining the next block, it's totally in their interest to group. Moreover, we are not
+              able to know who mined every block. Indeed, only miners who chose to sign
+              can be retrieved.
+            </div>
+            <br>
+            <div>
+              As we can observe, the majority of the pools are from China. That's
+              because China's electricity is cheap. Hence miners can have a larger profit by mining.
+            </div>
+          </span>
+        </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -61,11 +73,13 @@ export default {
     let total = -1;
 
     const height = 650;
-    const width = 960;
+    const width = 720;
     const margin = 20;
+    const translateFactorX = 2.4;
+    const translateFactorY = 3.5;
 
     const svg = d3.select('svg.cam').attr('width', width).attr('height', height);
-    const camembert = svg.append('g').attr('transform', `translate(${width / 2.2},${height / 2.2})`);
+    const camembert = svg.append('g').attr('transform', `translate(${width / translateFactorX},${height / translateFactorY})`);
 
     const tooltip = d3.select('.donut')
       .append('div')
@@ -100,7 +114,7 @@ export default {
       total = freqs.reduce((acc, current) => acc + current);
       const size = d3.scaleLinear().domain([0, maxFreq]);
       const dataProcessed = pie(dataset);
-      let radius = Math.min(width, height) / 2 - margin;
+      let radius = Math.min(width / 1.5, height / 1.5) / 2 - margin;
       // The arc generator
       const arc = d3.arc()
         .innerRadius(radius * 0.6)
@@ -108,6 +122,9 @@ export default {
       const arc2 = d3.arc()
         .innerRadius(radius * 0.9)
         .outerRadius(radius * 0.9);
+      const arc3 = d3.arc()
+        .innerRadius(radius * 1.02)
+        .outerRadius(radius * 1.01);
 
       radius = Math.min(width, height) / 2.5;
       const arcLabel = d3.arc().innerRadius(radius).outerRadius(radius);
@@ -145,12 +162,9 @@ export default {
         .attr('points', (d) => {
           const posA = arc.centroid(d);
           const posB = arc2.centroid(d);
-          const posC = arc2.centroid(d);
-          const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
-          posC[0] = radius * 0.98 * (midangle < Math.PI ? 1 : -1); -1;
-          return [posA, posB, posC];
+          return [posA, posB];
         })
-        .attr('transform', `translate(${width / 2.2},${height / 2})`);
+        .attr('transform', `translate(${width / translateFactorX},${height / translateFactorY + 30})`);
       svg.selectAll('g')
         .attr('font-family', 'sans-serif')
         .attr('font-size', 11)
@@ -161,25 +175,26 @@ export default {
         .append('text')
         .text((d) => `${d.data.name}`)
         .attr('transform', (d) => {
-          const pos = arc2.centroid(d);
+          const pos = arc3.centroid(d);
           const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
-          pos[0] = radius * 1 * (midangle < Math.PI ? 1 : -1) + 2;
-          pos[1] += 28;
+          // On ajuste un peu la position du texte
+          pos[0] += 2;
+          pos[1] += 40;
           return `translate(${pos})`;
         })
         .attr('padding', '10px;');
       svg.append('text')
-        .attr('x', width / 2.05)
-        .attr('y', height * 0.99)
+        .attr('x', width / 2.5)
+        .attr('y', height * 0.8)
         .attr('text-anchor', 'middle')
         .style('font-size', '24px')
         .text('Repartition of the mining sources for the last 5 days');
       svg.append('text')
-        .attr('x', width / 2.65)
-        .attr('y', height / 1.4)
+        .attr('x', width / 2.87)
+        .attr('y', height / 2)
         .attr('text-anchor', 'middle')
         .attr('fill', '#F5C52C')
-        .style('font-size', '200px')
+        .style('font-size', '150px')
         .style('font-weight', 'bold')
         .attr('transform', 'rotate(-13)')
         .text('₿');
@@ -207,14 +222,9 @@ div.tooltip {
     position: absolute;
 }
 
-.desc {
-  top: 100px;
-  left: 980px;
-  width: 250px;
-}
-
-.btc {
-  color: gold;
+.legende {
+  margin-top: 50px;
+  position: relative;
 }
 
 </style>
