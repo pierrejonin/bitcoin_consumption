@@ -5,7 +5,7 @@
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
               <router-link class="nav-link" to="/vizus">
-                Visualisations
+                Vizualisations
               </router-link>
           </b-navbar-nav>
         </b-collapse>
