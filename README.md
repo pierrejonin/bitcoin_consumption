@@ -9,9 +9,11 @@ This vizualisation aims to give information about the energetic viability of Bit
 
 This project was developed during a Data Vizualisation course and the details are available [on this page](https://lyondataviz.github.io/teaching/lyon1-m2/2019/projets.html).
 
+Documents explaining the project evolution are available in the [Wiki section](https://github.com/pierrejonin/bitcoin_consumption/wiki).
+
 ## Vizualisation
 
-The vizualisation is up and running at https://pierrejonin.github.io/bitcoin_consumption/
+The vizualisation is up and running at https://pierrejonin.github.io/bitcoin_consumption/.
 
 ## Build with 
 * [D3.js](https://d3js.org/)
