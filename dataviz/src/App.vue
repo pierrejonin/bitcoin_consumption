@@ -4,17 +4,8 @@
         <b-navbar-brand href="#" to="/">Projet DataViz - BTC</b-navbar-brand>
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-              <router-link class="nav-link" to="/WorldMapView">
-                Pays
-              </router-link>
-              <router-link class="nav-link" to="/CompaniesDonut">
-                Entreprises - Donut
-              </router-link>
-              <router-link class="nav-link" to="/StackedBarChartView">
-                StackedBarChartView
-              </router-link>
-              <router-link class="nav-link" to="/LineChartView">
-               LineChartView
+              <router-link class="nav-link" to="/vizus">
+                Visualisations
               </router-link>
           </b-navbar-nav>
         </b-collapse>

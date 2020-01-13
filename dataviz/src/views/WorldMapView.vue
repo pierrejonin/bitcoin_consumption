@@ -1,5 +1,5 @@
 <template>
-  <div class="WorldMapView">
+  <div class='WorldMapView'>
     <WorldMap />
   </div>
 </template>

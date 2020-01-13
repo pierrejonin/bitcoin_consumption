@@ -3,17 +3,33 @@
     <b-row>
       <CompaniesDonut class="firstDiv"/>
     </b-row>
+    <b-row>
+      <LineChart class="firstDiv"/>
+    </b-row>
+    <b-row>
+      <StackedBarChart class="firstDiv"/>
+    </b-row>
+    <b-row>
+      <WorldMap class="firstDiv"/>
+    </b-row>
   </b-container>
 </template>
 
 <script>
 /* eslint no-restricted-globals:0 */
 import CompaniesDonut from '../components/CompaniesDonut.vue';
+import LineChart from '../components/LineChart.vue';
+import StackedBarChart from '../components/StackedBarChart.vue';
+import WorldMap from '../components/WorldMap.vue';
+
 
 export default {
   name: 'Companies',
   components: {
     CompaniesDonut,
+    LineChart,
+    StackedBarChart,
+    WorldMap,
   },
 };
 </script>

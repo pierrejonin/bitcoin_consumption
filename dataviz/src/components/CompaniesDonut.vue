@@ -208,7 +208,6 @@ div.tooltip {
 }
 
 .desc {
-  position: fixed;
   top: 100px;
   left: 980px;
   width: 250px;

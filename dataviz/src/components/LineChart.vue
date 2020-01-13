@@ -393,7 +393,6 @@ export default {
 };
 </script>
 <style>
-body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
     .axis { font: 14px sans-serif; }
     .line {
       fill: none;
