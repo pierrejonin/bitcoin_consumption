@@ -1,5 +1,5 @@
 <template>
-  <div id="my_dataviz">
+  <div id="world_dataviz">
     <div id="legendes">
       <div id="legende1"></div>
       <div id="legende2"></div>
@@ -28,7 +28,7 @@ export default {
   name: 'WorldMap',
   mounted() {
     // The svg
-    const svg = d3.select('#my_dataviz')
+    const svg = d3.select('#world_dataviz')
       .append('svg')
       .attr('width', 900)
       .attr('height', 700)
@@ -290,7 +290,7 @@ export default {
 }
 
 #explication {
-  width: 330px;
+  width: 200px;
   float : right;
   padding-right : 20px;
 }

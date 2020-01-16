@@ -1,12 +1,14 @@
 <template>
-    <div id="my_dataviz">
-      <div id="buttons">
-        <button id="fossil">Fossil</button>
-        <button id="nuclear">Nuclear</button>
-        <button id="hydroelectric">Hydroelectric</button>
-        <button id="renewable">Renewable</button>
+  <div id="my_dataviz">
+      <div id="stackedbarchart">
+        <div id="buttons">
+          <button id="fossil">Fossil</button>
+          <button id="nuclear">Nuclear</button>
+          <button id="hydroelectric">Hydroelectric</button>
+          <button id="renewable">Renewable</button>
+        </div>
       </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -23,10 +25,10 @@ export default {
 
     // append the svg object to the body of the page
     // eslint-disable-next-line no-unused-vars
-    const svg = d3.select('#my_dataviz')
+    const svg = d3.select('#stackedbarchart')
       .append('svg')
       .attr('width', 1500 + margin.left + margin.right)
-      .attr('height', 800 + margin.top + margin.bottom)
+      .attr('height', 500 + margin.top + margin.bottom)
       .append('g')
       .attr('transform',
         `translate(${margin.left},${margin.top})`);
