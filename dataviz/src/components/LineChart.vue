@@ -1,5 +1,5 @@
 <template>
-    <div id="my_dataviz">
+    <div id="my_dataviz_line">
     </div>
 </template>
 <script>
@@ -29,7 +29,7 @@ export default {
     // append the svg obgect to the body of the page
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
-    const svg = d3.select('#my_dataviz').append('svg')
+    const svg = d3.select('#my_dataviz_line').append('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom);
 
@@ -37,7 +37,7 @@ export default {
       .attr('transform',
         `translate(${margin.left},${margin.top})`);
 
-    const Tooltip = d3.select('#my_dataviz')
+    const Tooltip = d3.select('#my_dataviz_line')
       .append('div')
       .style('opacity', 0)
       .attr('class', 'tooltip')
@@ -114,7 +114,7 @@ export default {
         .attr('id', 'circle1')
         .attr('cx', x(new Date(2016, 0, 29)))
         .attr('cy', y(4.7181))
-        .attr('r', 5)
+        .attr('r', 7)
         .attr('fill', '#1A7EF7');
       const mouseover1 = function o() {
         Tooltip
@@ -127,7 +127,7 @@ export default {
         Tooltip
           .html('Le Bitcoin consomme <br> autant qu\'un million <br> de foyers français')
           .style('text-align', 'center')
-          .style('left', `${d3.mouse(this)[0] - 20}px`)
+          .style('left', `${d3.mouse(this)[0] + 100}px`)
           .style('top', `${d3.mouse(this)[1] - 30}px`);
       };
       const mouseleave1 = function l() {
@@ -147,7 +147,7 @@ export default {
         .attr('id', 'circle2')
         .attr('cx', x(new Date(2018, 10, 3)))
         .attr('cy', y(51.673))
-        .attr('r', 5)
+        .attr('r', 7)
         .attr('fill', '#1A7EF7');
       const mouseover2 = function o() {
         Tooltip
@@ -160,7 +160,7 @@ export default {
         Tooltip
           .html('Le Bitcoin consomme <br> maintenant autant <br> que le Bengladesh <br> (+150M d\'habitants)')
           .style('text-align', 'center')
-          .style('left', `${d3.mouse(this)[0] - 20}px`)
+          .style('left', `${d3.mouse(this)[0] + 100}px`)
           .style('top', `${d3.mouse(this)[1] - 50}px`);
       };
       const mouseleave2 = function l() {
@@ -180,7 +180,7 @@ export default {
         .attr('id', 'circle3')
         .attr('cx', x(new Date(2017, 6, 14)))
         .attr('cy', y(14.0462))
-        .attr('r', 5)
+        .attr('r', 7)
         .attr('fill', '#1A7EF7');
       const mouseover3 = function o() {
         Tooltip
@@ -193,7 +193,7 @@ export default {
         Tooltip
           .html('Le Bitcoin consomme <br> plus que la Corée! <br> (du nord)')
           .style('text-align', 'center')
-          .style('left', `${d3.mouse(this)[0] - 20}px`)
+          .style('left', `${d3.mouse(this)[0] + 100}px`)
           .style('top', `${d3.mouse(this)[1] - 30}px`);
       };
       const mouseleave3 = function l() {
@@ -213,7 +213,7 @@ export default {
         .attr('id', 'circle4')
         .attr('cx', x(new Date(2019, 8, 22)))
         .attr('cy', y(80.2968))
-        .attr('r', 5)
+        .attr('r', 7)
         .attr('fill', '#1A7EF7');
       const mouseover4 = function o() {
         Tooltip
@@ -225,7 +225,7 @@ export default {
       const mousemove4 = function m() {
         Tooltip
           .html('Max conso')
-          .style('left', `${d3.mouse(this)[0] - 30}px`)
+          .style('left', `${d3.mouse(this)[0] + 100}px`)
           .style('top', `${d3.mouse(this)[1] + 30}px`);
       };
       const mouseleave4 = function l() {
@@ -245,7 +245,7 @@ export default {
         .attr('id', 'circle5')
         .attr('cx', x(new Date(2018, 1, 7)))
         .attr('cy', y(38.4544))
-        .attr('r', 5)
+        .attr('r', 7)
         .attr('fill', '#1A7EF7');
       const mouseover5 = function o() {
         Tooltip
@@ -258,7 +258,7 @@ export default {
         Tooltip
           .html('Eclatement de la <br> bulle au début 2018. <br> Le bitcoin consomme <br> plus que l\'Irak')
           .style('text-align', 'center')
-          .style('left', `${d3.mouse(this)[0] - 30}px`)
+          .style('left', `${d3.mouse(this)[0] + 100}px`)
           .style('top', `${d3.mouse(this)[1] - 50}px`);
       };
       const mouseleave5 = function l() {
@@ -278,7 +278,7 @@ export default {
         .attr('id', 'circle6')
         .attr('cx', x(new Date(2019, 8, 22)))
         .attr('cy', y(80.2968))
-        .attr('r', 5)
+        .attr('r', 7)
         .attr('fill', '#1A7EF7');
       const mouseover6 = function o() {
         Tooltip
@@ -291,7 +291,7 @@ export default {
         Tooltip
           .html('Maximum de la <br> consommation électrique. <br> Le niveau est équivalent <br> à celui de la Belgique')
           .style('text-align', 'center')
-          .style('left', `${d3.mouse(this)[0] - 30}px`)
+          .style('left', `${d3.mouse(this)[0] + 100}px`)
           .style('top', `${d3.mouse(this)[1] + 120}px`);
       };
       const mouseleave6 = function l() {
@@ -311,7 +311,7 @@ export default {
         .attr('id', 'circle7')
         .attr('cx', x(new Date(2020, 0, 3)))
         .attr('cy', y(74.3374))
-        .attr('r', 5)
+        .attr('r', 7)
         .attr('fill', '#1A7EF7');
       const mouseover7 = function o() {
         Tooltip
@@ -324,7 +324,7 @@ export default {
         Tooltip
           .html('Consommation actuelle. <br> Elle correspond à celle du Chili. <br> Ou deux fois celle du Qatar. <br> Ou trois fois celle de l\'Irlande')
           .style('text-align', 'center')
-          .style('left', `${d3.mouse(this)[0] - 30}px`)
+          .style('left', `${d3.mouse(this)[0] + 100}px`)
           .style('top', `${d3.mouse(this)[1] + 100}px`);
       };
       const mouseleave7 = function l() {
