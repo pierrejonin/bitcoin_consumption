@@ -36,6 +36,22 @@
         </b-card-body>
       </b-collapse>
     </b-card>
+
+    <b-card no-body class="mb-1">
+      <b-card-header header-tag="header" class="p-1" role="tab">
+        <b-button block href="#" v-b-toggle.accordion-3 variant="info">Data sources</b-button>
+      </b-card-header>
+      <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
+        <b-card-body>
+          <b-card-text>
+            <a href="https://www.cia.gov/library/publications/the-world-factbook/">CIA Factbook </a> : Used to create a dataset with multiple values on each country (electricity comsumption, population, ...)
+            <br>
+            <a href='https://digiconomist.net/bitcoin-energy-consumption'>Digiconomist</a>
+            <br>
+          </b-card-text>
+        </b-card-body>
+      </b-collapse>
+    </b-card>
   </div>
 </template>
 

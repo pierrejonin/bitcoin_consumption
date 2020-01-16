@@ -68,15 +68,23 @@ export default {
 
     svg.append('text')
       .attr('x', 200)
-      .attr('y', 450)
+      .attr('y', 430)
       .attr('text-anchor', 'middle')
       .style('font-size', '24px')
       .style('text-decoration', 'underline')
       .text('Electric energy sources by Country');
 
     svg.append('text')
+      .attr('x', 200)
+      .attr('y', 460)
+      .attr('text-anchor', 'middle')
+      .style('font-size', '24px')
+      .style('text-decoration', 'underline')
+      .text('that might be used for bitcoin mining');
+
+    svg.append('text')
       .attr('x', 180)
-      .attr('y', 475)
+      .attr('y', 480)
       .attr('text-anchor', 'middle')
       .style('font-size', '12px')
       .text('Sources : CIA Factbook; Digiconomist');
