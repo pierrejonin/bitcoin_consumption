@@ -1,10 +1,10 @@
 <template>
   <b-container>
     <b-row>
-      <CompaniesDonut class="firstDiv"/>
+      <LineChart class="firstDiv"/>
     </b-row>
     <b-row>
-      <LineChart class="firstDiv"/>
+      <CompaniesDonut class="firstDiv"/>
     </b-row>
     <b-row>
       <StackedBarChart class="firstDiv"/>

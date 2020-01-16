@@ -131,7 +131,8 @@ export default {
       const color = d3.scaleLinear()
         .domain([0, maxFreq])
         .range(['#ecfcff', '#3e64ff']);
-
+      const bodyPos = document.body.getBoundingClientRect();
+      const donutPos = document.getElementsByClassName('donut')[0].getBoundingClientRect();
       svg.selectAll('g')
         .selectAll('slices')
         .data(dataProcessed)
@@ -145,7 +146,7 @@ export default {
         .on('mousemove', (d) => {
           const mousePosition = d3.mouse(d3.event.currentTarget);
           tooltip.classed('hidden', false)
-            .attr('style', `left:${mousePosition[0] + width / 3}px; top:${mousePosition[1] + height / 2}px`)
+            .attr('style', `left:${mousePosition[0] + width / 2.3}px; top:${mousePosition[1] + Math.abs(bodyPos.y - donutPos.y) + 100}px`)
             .html(`Pool's name : ${d.data.name == '🐟' ? 'P2Pool' : d.data.name}<br>Bitcoins mined : ${d.data.value * 12.5}
               <br>Countries : ${countries[d.data.name] != undefined ? countries[d.data.name] : 'Unknown'}`);
         })
