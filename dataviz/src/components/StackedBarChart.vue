@@ -1,14 +1,18 @@
 <template>
-  <div id="my_dataviz">
-      <div id="stackedbarchart">
-        <div id="buttons">
-          <button id="fossil">Fossil</button>
-          <button id="nuclear">Nuclear</button>
-          <button id="hydroelectric">Hydroelectric</button>
-          <button id="renewable">Renewable</button>
+  <b-container>
+    <b-row align-h="center">
+      <div id="my_dataviz">
+        <div id="stackedbarchart">
+          <div id="buttons">
+            <button id="fossil">Fossil</button>
+            <button id="nuclear">Nuclear</button>
+            <button id="hydroelectric">Hydroelectric</button>
+            <button id="renewable">Renewable</button>
+          </div>
         </div>
       </div>
-  </div>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -27,7 +31,7 @@ export default {
     // eslint-disable-next-line no-unused-vars
     const svg = d3.select('#stackedbarchart')
       .append('svg')
-      .attr('width', 1500 + margin.left + margin.right)
+      .attr('width', width * 2)
       .attr('height', 500 + margin.top + margin.bottom)
       .append('g')
       .attr('transform',
@@ -63,7 +67,7 @@ export default {
       .attr('alignment-baseline', 'middle');
 
     svg.append('text')
-      .attr('x', 180)
+      .attr('x', 200)
       .attr('y', 450)
       .attr('text-anchor', 'middle')
       .style('font-size', '24px')

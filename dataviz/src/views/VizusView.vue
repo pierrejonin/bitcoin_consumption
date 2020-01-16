@@ -46,4 +46,5 @@ export default {
  75% {opacity: 0.8;}
  100% {opacity: 1;}
 }
+
 </style>

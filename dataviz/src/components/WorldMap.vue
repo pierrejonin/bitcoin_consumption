@@ -1,23 +1,30 @@
 <template>
-  <div id="world_dataviz">
-    <div id="legendes">
-      <div id="legende1"></div>
-      <div id="legende2"></div>
-      <div id="explication">
-        <br>
-        <b>Rapport en % =</b><br>
-        (Conso. du Bitcoin sur un an / Conso. du pays sur un an)*100
-        <br>
-        <br>
-        Les pays en <b class="blue">bleu</b> sont ceux dont la consommation en éléctricité
-        est <b class="blue">supérieure</b> ou égale à celle du Bitcoin (par an).
-        <br>
-        <br>
-        Les pays en <b class="red">rouge</b> sont ceux dont la consommation
-        en éléctricité est <b class="red">inférieure</b> à celle du Bitcoin (par an).
-      </div>
-    </div>
-  </div>
+ <b-container>
+    <b-row>
+        <b-col cols="8" class="mapCol">
+          <div id="world_dataviz"></div>
+        </b-col>
+        <b-col>
+          <div id="legende">
+            <div id="legende1"></div>
+            <div id="legende2"></div>
+            <div id="explication">
+              <br>
+              <b>Rapport en % :</b><br>
+              (Conso. du Bitcoin sur un an / Conso. du pays sur un an)*100
+              <br>
+              <br>
+              Les pays en <b class="blue">bleu</b> sont ceux dont la consommation en éléctricité
+              est <b class="blue">supérieure</b> ou égale à celle du Bitcoin (par an).
+              <br>
+              <br>
+              Les pays en <b class="red">rouge</b> sont ceux dont la consommation
+              en éléctricité est <b class="red">inférieure</b> à celle du Bitcoin (par an).
+            </div>
+          </div>
+        </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -75,7 +82,8 @@ export default {
     const keyBlue = d3.select('#legende1')
       .append('svg')
       .attr('width', w + 15)
-      .attr('height', h);
+      .attr('height', h)
+      .attr('transform', 'translate(20,0)');
 
     // pas touche
     const legendBlue = keyBlue.append('defs')
@@ -128,7 +136,8 @@ export default {
     const keyRed = d3.select('#legende2')
       .append('svg')
       .attr('width', w + 30)
-      .attr('height', h);
+      .attr('height', h)
+      .attr('transform', 'translate(20,0)');
 
     // pas touche
     const legendRed = keyRed.append('defs')
@@ -301,5 +310,16 @@ export default {
 
 .red {
   color: red;
+}
+
+path {
+  stroke: black;
+  stroke-width: 0.2;
+}
+.mapCol {
+  z-index: 99999;
+}
+.tooltip {
+  z-index: 999999;
 }
 </style>

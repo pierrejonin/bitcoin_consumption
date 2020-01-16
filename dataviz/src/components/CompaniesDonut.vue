@@ -54,7 +54,7 @@ export default {
     const gdriveLink = 'https://docs.google.com/spreadsheets/u/0/d/1gw_V0IF139kLkQ96k2WNdU1bTobevqlnI_80kYUeic0/export?format=csv&id=1gw_V0IF139kLkQ96k2WNdU1bTobevqlnI_80kYUeic0&gid=0';
     this.connect();
     const myPools = ['AntPool', 'Poolin', 'Huobi', 'BTC.COM', 'Okex',
-      'BitFury', 'bytepool', 'viaBTC', '🐟', 'BTC.TOP', 'Inconnu'];
+      'BitFury', 'bytepool', 'viaBTC', '🐟', 'BTC.TOP', 'Unknown'];
 
     const countries = {
       'AntPool': ['China - 🇨🇳'],
@@ -101,7 +101,7 @@ export default {
             ? (freq[pool] += 1, trouve = true) : null;
         }
         if (!trouve) {
-          freq.Inconnu += 1;
+          freq.Unknown += 1;
           trouve = true;
         }
       });
@@ -138,6 +138,7 @@ export default {
         .data(dataProcessed)
         .enter()
         .append('path')
+        .attr('class', 'donutPath')
         .attr('fill', (d) => color(d.data.value))
         .attr('d', arc)
         .attr('stroke', 'white')
@@ -147,8 +148,10 @@ export default {
           const mousePosition = d3.mouse(d3.event.currentTarget);
           tooltip.classed('hidden', false)
             .attr('style', `left:${mousePosition[0] + width / 2.3}px; top:${mousePosition[1] + Math.abs(bodyPos.y - donutPos.y) + 100}px`)
-            .html(`Pool's name : ${d.data.name == '🐟' ? 'P2Pool' : d.data.name}<br>Bitcoins mined : ${d.data.value * 12.5}
-              <br>Countries : ${countries[d.data.name] != undefined ? countries[d.data.name] : 'Unknown'}`);
+            .html(`Pool's name : ${d.data.name == '🐟' ? 'P2Pool' : d.data.name}
+              <br>Bitcoins mined : ${d.data.value * 12.5}
+              <br>Countries : ${countries[d.data.name] != undefined ? countries[d.data.name] : 'Unknown'}
+              <br>Percentage : ${Math.round((d.data.value / total) * 100)}%`);
         })
         .on('mouseout', () => {
           tooltip.classed('hidden', true);
@@ -185,11 +188,12 @@ export default {
         })
         .attr('padding', '10px;');
       svg.append('text')
-        .attr('x', width / 2.5)
-        .attr('y', height * 0.8)
+        .attr('x', width * 0.6)
+        .attr('y', height * 0.7)
         .attr('text-anchor', 'middle')
+        .attr('text-decoration', 'underline')
         .style('font-size', '24px')
-        .text('Repartition of the mining sources for the last 5 days');
+        .text('BTC mined per pool between 01/03 - 01/14');
       svg.append('text')
         .attr('x', width / 2.87)
         .attr('y', height / 2)
@@ -226,6 +230,11 @@ div.tooltip {
 .legende {
   margin-top: 50px;
   position: relative;
+}
+
+path.donutPath {
+  stroke: white;
+  stroke-width: 0;
 }
 
 </style>
