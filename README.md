@@ -25,6 +25,7 @@ The vizualisation is up and running at https://pierrejonin.github.io/bitcoin_con
 * [HTML](https://developer.mozilla.org/fr/docs/Web/HTML)
 
 ## Architecture 
+* **/doc** : Project documentation
 * **/data** : data files
 * **/pictures** : First sketches of the project
 * **/dataviz/src** : Component files for the web vizualisation
