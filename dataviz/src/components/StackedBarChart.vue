@@ -40,7 +40,8 @@ export default {
 
     svg.append('text').attr('x', 380).attr('y', 100).text('Click on the source you want to sort')
       .style('font-size', '15px')
-      .attr('alignment-baseline', 'middle');
+      .attr('alignment-baseline', 'middle')
+      .attr('font-weight', 'bold');
 
     svg.append('text')
       .attr('x', 200)
@@ -254,19 +255,26 @@ export default {
       svg.append('text').attr('x', 420).attr('y', 130).text('Fossil')
         .style('font-size', '15px')
         .attr('alignment-baseline', 'middle')
-        .on('click', () => { sortFossil(); });
+        .on('click', () => { sortFossil(); })
+        .attr('type', 'button');
+
       svg.append('text').attr('x', 420).attr('y', 160).text('Nuclear')
         .style('font-size', '15px')
         .attr('alignment-baseline', 'middle')
-        .on('click', () => { sortNuclear(); });
+        .on('click', () => { sortNuclear(); })
+        .attr('type', 'button');
+
       svg.append('text').attr('x', 420).attr('y', 190).text('Hydroelectric')
         .style('font-size', '15px')
         .attr('alignment-baseline', 'middle')
-        .on('click', () => { sortHydroelectric(); });
+        .on('click', () => { sortHydroelectric(); })
+        .attr('type', 'button');
+
       svg.append('text').attr('x', 420).attr('y', 220).text('Renewable')
         .style('font-size', '15px')
         .attr('alignment-baseline', 'middle')
-        .on('click', () => { sortRenewable(); });
+        .on('click', () => { sortRenewable(); })
+        .attr('type', 'button');
 
       update(groups, subgroups, topCountries);
     });
