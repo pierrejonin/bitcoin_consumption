@@ -1,5 +1,7 @@
 # Bitcoin Electricity Consumption - Data Vizualisation
 
+![](thumbnail.png)
+
 ## About the project
 
 Bitcoin is a crypto-currency often criticized for its viability. Why ? The energy chasm it represents.
