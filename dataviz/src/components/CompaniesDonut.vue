@@ -2,8 +2,16 @@
 <template>
   <b-container class="donut">
     <b-row>
-        <b-col cols="7">
+        <b-col cols="6">
           <svg class="cam"></svg>
+        </b-col>
+        <b-col cols="3">
+          <svg class="legend"></svg>
+          <br/>
+          <br/>
+          <div class="lComplementary">
+            More the blue is intense, more the pool's mining percentage is big.
+          </div>
         </b-col>
         <b-col>
           <span class="legende">
@@ -14,11 +22,17 @@
               able to know who mined every block. Indeed, only miners who chose to sign
               can be retrieved.
             </div>
-            <br>
+            <br/>
             <div>
               As we can observe, the majority of the pools are from China. That's
               because China's electricity is cheap. Hence miners can have a larger profit by mining.
             </div>
+            <br/>
+            <div>
+              Data scraped from <a href="https://www.blockchain.com/api/blockchain_api"> the blockchain data API</a>.
+              <br/>
+              Pools countries from <a href="https://en.bitcoin.it/wiki/Comparison_of_mining_pools"> bitcoin.it</a>.
+          </div>
           </span>
         </b-col>
     </b-row>
@@ -31,6 +45,7 @@
 /* eslint no-unused-vars: 0 */
 /* eslint eqeqeq: 0 */
 /* eslint quote-props: 0 */
+/* eslint no-nested-ternary: 0 */
 
 import * as d3 from 'd3';
 
@@ -74,12 +89,24 @@ export default {
 
     const height = 650;
     const width = 720;
+    const Lheight = 50;
+    const Lwidth = 210;
     const margin = 20;
     const translateFactorX = 2.4;
     const translateFactorY = 3.5;
 
     const svg = d3.select('svg.cam').attr('width', width).attr('height', height);
+    const svg2 = d3.select('svg.legend').attr('width', Lwidth).attr('height', Lheight);
     const camembert = svg.append('g').attr('transform', `translate(${width / translateFactorX},${height / translateFactorY})`);
+
+    const lBlue = svg2.append('defs')
+      .append('svg:linearGradient')
+      .attr('id', 'gradientB')
+      .attr('x1', '0%')
+      .attr('y1', '100%')
+      .attr('x2', '100%')
+      .attr('y2', '100%')
+      .attr('spreadMethod', 'pad');
 
     const tooltip = d3.select('.donut')
       .append('div')
@@ -148,9 +175,9 @@ export default {
           const mousePosition = d3.mouse(d3.event.currentTarget);
           tooltip.classed('hidden', false)
             .attr('style', `left:${mousePosition[0] + width / 2.3}px; top:${mousePosition[1] + Math.abs(bodyPos.y - donutPos.y) + 100}px`)
-            .html(`Pool's name : ${d.data.name == '🐟' ? 'P2Pool' : d.data.name}
+            .html(`Pool's name : ${d.data.name == '🐟' ? 'F2Pool' : d.data.name}
               <br>Bitcoins mined : ${d.data.value * 12.5}
-              <br>Countries : ${countries[d.data.name] != undefined ? countries[d.data.name] : 'Unknown'}
+              <br>Countries : ${d.data.name == '🐟' ? countries.F2Pool : countries[d.data.name] != undefined ? countries[d.data.name] : 'Unknown'}
               <br>Percentage : ${Math.round((d.data.value / total) * 100)}%`);
         })
         .on('mouseout', () => {
@@ -188,8 +215,8 @@ export default {
         })
         .attr('padding', '10px;');
       svg.append('text')
-        .attr('x', width * 0.6)
-        .attr('y', height * 0.7)
+        .attr('x', width * 0.5)
+        .attr('y', height * 0.73)
         .attr('text-anchor', 'middle')
         .attr('text-decoration', 'underline')
         .style('font-size', '24px')
@@ -203,6 +230,36 @@ export default {
         .style('font-weight', 'bold')
         .attr('transform', 'rotate(-13)')
         .text('₿');
+
+      lBlue.append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', color(0))
+        .attr('stop-opacity', 1);
+
+      // color fin
+      lBlue.append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', color(maxFreq))
+        .attr('stop-opacity', 1);
+
+      svg2.append('rect')
+        .attr('width', Lwidth - 9)
+        .attr('height', Lheight - 30)
+        .style('fill', 'url(#gradientB)')
+        .attr('transform', 'translate(0,10)');
+
+      const ticksScale = d3.scaleLinear()
+        .range([200, 0])
+        .domain([20, -0.3]);
+
+      const yAxisBlue = d3.axisBottom()
+        .scale(ticksScale)
+        .ticks(5);
+
+      svg2.append('g')
+        .attr('class', 'y axis')
+        .attr('transform', 'translate(0,30)')
+        .call(yAxisBlue);
     });
   },
 };
@@ -237,4 +294,8 @@ path.donutPath {
   stroke-width: 0;
 }
 
+.lComplementary {
+  text-align: justify;
+  width: 80%;
+}
 </style>

@@ -48,6 +48,9 @@
             <br>
             <a href='https://digiconomist.net/bitcoin-energy-consumption'>Digiconomist</a>
             <br>
+            <a href='https://www.blockchain.com/api/blockchain_api'>API blockchain.com</a>
+            <br>
+            <a href="https://en.bitcoin.it/wiki/Comparison_of_mining_pools"> bitcoin.it</a>
           </b-card-text>
         </b-card-body>
       </b-collapse>
