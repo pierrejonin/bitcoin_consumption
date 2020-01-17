@@ -37,6 +37,7 @@
 /* eslint no-unused-vars: 0 */
 /* eslint eqeqeq: 0 */
 /* eslint quote-props: 0 */
+/* eslint no-nested-ternary: 0 */
 
 import * as d3 from 'd3';
 
@@ -156,7 +157,7 @@ export default {
             .attr('style', `left:${mousePosition[0] + width / 2.3}px; top:${mousePosition[1] + Math.abs(bodyPos.y - donutPos.y) + 100}px`)
             .html(`Pool's name : ${d.data.name == '🐟' ? 'F2Pool' : d.data.name}
               <br>Bitcoins mined : ${d.data.value * 12.5}
-              <br>Countries : ${countries[d.data.name] != undefined ? countries[d.data.name] : 'Unknown'}
+              <br>Countries : ${d.data.name == '🐟' ? countries.F2Pool : countries[d.data.name] != undefined ? countries[d.data.name] : 'Unknown'}
               <br>Percentage : ${Math.round((d.data.value / total) * 100)}%`);
         })
         .on('mouseout', () => {
