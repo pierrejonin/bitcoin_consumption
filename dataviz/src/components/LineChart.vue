@@ -127,8 +127,8 @@ export default {
         Tooltip
           .html('Le Bitcoin consomme <br> autant qu\'un million <br> de foyers français')
           .style('text-align', 'center')
-          .style('left', `${d3.mouse(this)[0] + 100}px`)
-          .style('top', `${d3.mouse(this)[1] - 30}px`);
+          .style('left', `${d3.event.pageX + 10}px`)
+          .style('top', `${d3.event.pageY + 10}px`);
       };
       const mouseleave1 = function l() {
         Tooltip
@@ -160,8 +160,8 @@ export default {
         Tooltip
           .html('Le Bitcoin consomme <br> maintenant autant <br> que le Bengladesh <br> (+150M d\'habitants)')
           .style('text-align', 'center')
-          .style('left', `${d3.mouse(this)[0] + 100}px`)
-          .style('top', `${d3.mouse(this)[1] - 50}px`);
+          .style('left', `${d3.event.pageX + 10}px`)
+          .style('top', `${d3.event.pageY + 10}px`);
       };
       const mouseleave2 = function l() {
         Tooltip
@@ -193,8 +193,8 @@ export default {
         Tooltip
           .html('Le Bitcoin consomme <br> plus que la Corée! <br> (du nord)')
           .style('text-align', 'center')
-          .style('left', `${d3.mouse(this)[0] + 100}px`)
-          .style('top', `${d3.mouse(this)[1] - 30}px`);
+          .style('left', `${d3.event.pageX + 10}px`)
+          .style('top', `${d3.event.pageY + 10}px`);
       };
       const mouseleave3 = function l() {
         Tooltip
@@ -225,8 +225,8 @@ export default {
       const mousemove4 = function m() {
         Tooltip
           .html('Max conso')
-          .style('left', `${d3.mouse(this)[0] + 100}px`)
-          .style('top', `${d3.mouse(this)[1] + 30}px`);
+          .style('left', `${d3.event.pageX + 10}px`)
+          .style('top', `${d3.event.pageY + 10}px`);
       };
       const mouseleave4 = function l() {
         Tooltip
@@ -258,8 +258,8 @@ export default {
         Tooltip
           .html('Eclatement de la <br> bulle au début 2018. <br> Le bitcoin consomme <br> plus que l\'Irak')
           .style('text-align', 'center')
-          .style('left', `${d3.mouse(this)[0] + 100}px`)
-          .style('top', `${d3.mouse(this)[1] - 50}px`);
+          .style('left', `${d3.event.pageX + 10}px`)
+          .style('top', `${d3.event.pageY + 10}px`);
       };
       const mouseleave5 = function l() {
         Tooltip
@@ -291,8 +291,8 @@ export default {
         Tooltip
           .html('Maximum de la <br> consommation électrique. <br> Le niveau est équivalent <br> à celui de la Belgique')
           .style('text-align', 'center')
-          .style('left', `${d3.mouse(this)[0] + 100}px`)
-          .style('top', `${d3.mouse(this)[1] + 120}px`);
+          .style('left', `${d3.event.pageX - 200}px`)
+          .style('top', `${d3.event.pageY + 10}px`);
       };
       const mouseleave6 = function l() {
         Tooltip
@@ -324,8 +324,8 @@ export default {
         Tooltip
           .html('Consommation actuelle. <br> Elle correspond à celle du Chili. <br> Ou deux fois celle du Qatar. <br> Ou trois fois celle de l\'Irlande')
           .style('text-align', 'center')
-          .style('left', `${d3.mouse(this)[0] + 100}px`)
-          .style('top', `${d3.mouse(this)[1] + 100}px`);
+          .style('left', `${d3.event.pageX + 10}px`)
+          .style('top', `${d3.event.pageY + 10}px`);
       };
       const mouseleave7 = function l() {
         Tooltip

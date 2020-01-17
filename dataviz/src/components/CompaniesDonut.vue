@@ -174,7 +174,7 @@ export default {
         .on('mousemove', (d) => {
           const mousePosition = d3.mouse(d3.event.currentTarget);
           tooltip.classed('hidden', false)
-            .attr('style', `left:${mousePosition[0] + width / 2.3}px; top:${mousePosition[1] + Math.abs(bodyPos.y - donutPos.y) + 100}px`)
+            .attr('style', `left:${d3.event.pageX - 100}px; top:${d3.event.pageY - 100}px`)
             .html(`Pool's name : ${d.data.name == '🐟' ? 'F2Pool' : d.data.name}
               <br>Bitcoins mined : ${d.data.value * 12.5}
               <br>Countries : ${d.data.name == '🐟' ? countries.F2Pool : countries[d.data.name] != undefined ? countries[d.data.name] : 'Unknown'}
@@ -220,7 +220,7 @@ export default {
         .attr('text-anchor', 'middle')
         .attr('text-decoration', 'underline')
         .style('font-size', '24px')
-        .text('BTC mined per pool between 01/03 - 01/14');
+        .text('BTC mined per pool between 12/30/19 - 01/09/20');
       svg.append('text')
         .attr('x', width / 2.87)
         .attr('y', height / 2)
@@ -258,7 +258,7 @@ export default {
 
       svg2.append('g')
         .attr('class', 'y axis')
-        .attr('transform', 'translate(0,30)')
+        .attr('transform', 'translate(-0.5,30)')
         .call(yAxisBlue);
     });
   },
@@ -287,6 +287,7 @@ div.tooltip {
 .legende {
   margin-top: 50px;
   position: relative;
+  text-align: justify;
 }
 
 path.donutPath {
