@@ -14,11 +14,17 @@
               able to know who mined every block. Indeed, only miners who chose to sign
               can be retrieved.
             </div>
-            <br>
+            <br/>
             <div>
               As we can observe, the majority of the pools are from China. That's
               because China's electricity is cheap. Hence miners can have a larger profit by mining.
             </div>
+            <br/>
+            <div>
+              Data scraped from <a href="https://www.blockchain.com/api/blockchain_api"> the blockchain data API</a>.
+              <br/>
+              Pools countries from <a href="https://en.bitcoin.it/wiki/Comparison_of_mining_pools"> bitcoin.it</a>.
+          </div>
           </span>
         </b-col>
     </b-row>
@@ -148,7 +154,7 @@ export default {
           const mousePosition = d3.mouse(d3.event.currentTarget);
           tooltip.classed('hidden', false)
             .attr('style', `left:${mousePosition[0] + width / 2.3}px; top:${mousePosition[1] + Math.abs(bodyPos.y - donutPos.y) + 100}px`)
-            .html(`Pool's name : ${d.data.name == '🐟' ? 'P2Pool' : d.data.name}
+            .html(`Pool's name : ${d.data.name == '🐟' ? 'F2Pool' : d.data.name}
               <br>Bitcoins mined : ${d.data.value * 12.5}
               <br>Countries : ${countries[d.data.name] != undefined ? countries[d.data.name] : 'Unknown'}
               <br>Percentage : ${Math.round((d.data.value / total) * 100)}%`);
