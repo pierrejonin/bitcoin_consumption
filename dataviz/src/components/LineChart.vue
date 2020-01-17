@@ -53,7 +53,7 @@ export default {
       .attr('text-anchor', 'middle')
       .style('font-size', '24px')
       .style('text-decoration', 'underline')
-      .text('Consommation énergétique du Bitcoin au cours du temps');
+      .text('Bitcoin electricity consumption over time');
 
     svg.append('text')
       .attr('x', 500)
@@ -107,7 +107,7 @@ export default {
         .attr('dy', '.71em')
         .style('text-anchor', 'end')
         .attr('fill', '#5D6971')
-        .text('Consommation électrique annualisée(en TW/H)');
+        .text('Annual Electricity Consumption (TW/H)');
 
       // First interest point
       g.append('circle')
@@ -125,7 +125,7 @@ export default {
       };
       const mousemove1 = function m() {
         Tooltip
-          .html('Le Bitcoin consomme <br> autant qu\'un million <br> de foyers français')
+          .html('The Bitcoin electricity consumption <br> is equivalent to one million <br> French households')
           .style('text-align', 'center')
           .style('left', `${d3.event.pageX + 10}px`)
           .style('top', `${d3.event.pageY + 10}px`);
@@ -158,7 +158,7 @@ export default {
       };
       const mousemove2 = function m() {
         Tooltip
-          .html('Le Bitcoin consomme <br> maintenant autant <br> que le Bengladesh <br> (+150M d\'habitants)')
+          .html('The Bitcoin electricity consumption is <br> equivalent to Bangladesh\'s one <br> (+150M inhabitants)')
           .style('text-align', 'center')
           .style('left', `${d3.event.pageX + 10}px`)
           .style('top', `${d3.event.pageY + 10}px`);
@@ -191,7 +191,7 @@ export default {
       };
       const mousemove3 = function m() {
         Tooltip
-          .html('Le Bitcoin consomme <br> plus que la Corée! <br> (du nord)')
+          .html('The Bitcoin electricity consumption is <br> bigger than North Korea\'s one')
           .style('text-align', 'center')
           .style('left', `${d3.event.pageX + 10}px`)
           .style('top', `${d3.event.pageY + 10}px`);
@@ -256,7 +256,7 @@ export default {
       };
       const mousemove5 = function m() {
         Tooltip
-          .html('Eclatement de la <br> bulle au début 2018. <br> Le bitcoin consomme <br> plus que l\'Irak')
+          .html('Bubble Burst in 2018 <br> The Bitcoin electricity consumption is <br> bigger than Irak\'s one')
           .style('text-align', 'center')
           .style('left', `${d3.event.pageX + 10}px`)
           .style('top', `${d3.event.pageY + 10}px`);
@@ -289,7 +289,7 @@ export default {
       };
       const mousemove6 = function m() {
         Tooltip
-          .html('Maximum de la <br> consommation électrique. <br> Le niveau est équivalent <br> à celui de la Belgique')
+          .html('Maximum electricity consumption. <br> It is equivalent to Belgium\'s one')
           .style('text-align', 'center')
           .style('left', `${d3.event.pageX - 200}px`)
           .style('top', `${d3.event.pageY + 10}px`);
@@ -322,7 +322,7 @@ export default {
       };
       const mousemove7 = function m() {
         Tooltip
-          .html('Consommation actuelle. <br> Elle correspond à celle du Chili. <br> Ou deux fois celle du Qatar. <br> Ou trois fois celle de l\'Irlande')
+          .html('Actual electricity consumption <br> It is equivalent to Chili\'s one <br> Or twice more than Qatar <br> Or three times more than Ireland')
           .style('text-align', 'center')
           .style('left', `${d3.event.pageX + 10}px`)
           .style('top', `${d3.event.pageY + 10}px`);
