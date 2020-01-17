@@ -220,7 +220,7 @@ export default {
         .attr('text-anchor', 'middle')
         .attr('text-decoration', 'underline')
         .style('font-size', '24px')
-        .text('BTC mined per pool between 01/03 - 01/14');
+        .text('BTC mined per pool between 12/30/19 - 01/09/20');
       svg.append('text')
         .attr('x', width / 2.87)
         .attr('y', height / 2)
@@ -258,7 +258,7 @@ export default {
 
       svg2.append('g')
         .attr('class', 'y axis')
-        .attr('transform', 'translate(0,30)')
+        .attr('transform', 'translate(-0.5,30)')
         .call(yAxisBlue);
     });
   },
