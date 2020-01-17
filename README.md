@@ -29,6 +29,7 @@ The visualization is up and running at https://pierrejonin.github.io/bitcoin_con
 * **/data** : data files
 * **/pictures** : First sketches of the project
 * **/dataviz/src** : Component files for the web visualization
+* **/gallery** : Only for pull-request purposes
 
 ## Run it locally
 
