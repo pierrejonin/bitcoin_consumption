@@ -10,16 +10,17 @@
             <div id="legende2"></div>
             <div id="explication">
               <br>
-              <b>Rapport en % :</b><br>
-              (Conso. du Bitcoin sur un an / Conso. du pays sur un an)*100
+              <b>Percentage :</b><br>
+              (Bitcoin's consumption / Country's consumption)*100
               <br>
               <br>
-              Les pays en <b class="blue">bleu</b> sont ceux dont la consommation en éléctricité
-              est <b class="blue">supérieure</b> ou égale à celle du Bitcoin (par an).
+              <b class="blue">Blue</b> countries are those which have a
+              <b class="blue">superior or equal</b> yearly energetic consumption than Bitcoin.
               <br>
               <br>
-              Les pays en <b class="red">rouge</b> sont ceux dont la consommation
-              en éléctricité est <b class="red">inférieure</b> à celle du Bitcoin (par an).
+              <b class="red">Red</b> countries are those which have an
+              <b class="red">inferior</b> yearly energetic consumption than Bitcoin.
+              <br>
             </div>
           </div>
         </b-col>
@@ -227,7 +228,7 @@ export default {
         if (total === 0) {
           htmlString = `<strong>${d.properties.name}</strong><br>Consommation : <i>/</i><br>Rapport : <i>/</i>`;
         } else {
-          htmlString = `<strong>${d.properties.name}</strong><br>Consommation : <i>${total.toLocaleString()} kWH</i><br>Rapport : <i>${Number.parseFloat((75000000000 / total).toFixed(2)) * 100}%</i>`;
+          htmlString = `<strong>${d.properties.name}</strong><br>Consommation : <i>${total.toLocaleString()} kWH</i><br>The bitcoin consumption is equivalent to <i>${Number.parseFloat((75000000000 / total).toFixed(2)) * 100}% of this country's one</i>`;
         }
 
         Tooltip
@@ -302,6 +303,7 @@ export default {
   width: 200px;
   float : right;
   padding-right : 20px;
+  text-align: justify;
 }
 
 .blue {
@@ -310,6 +312,7 @@ export default {
 
 .red {
   color: red;
+  text-align: justify;
 }
 
 path {
