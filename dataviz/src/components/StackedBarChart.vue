@@ -3,12 +3,6 @@
     <b-row align-h="center">
       <div id="my_dataviz">
         <div id="stackedbarchart">
-          <div id="buttons">
-            <button id="fossil">Fossil</button>
-            <button id="nuclear">Nuclear</button>
-            <button id="hydroelectric">Hydroelectric</button>
-            <button id="renewable">Renewable</button>
-          </div>
         </div>
       </div>
     </b-row>
@@ -31,7 +25,7 @@ export default {
     // eslint-disable-next-line no-unused-vars
     const svg = d3.select('#stackedbarchart')
       .append('svg')
-      .attr('width', width * 2)
+      .attr('width', width * 3)
       .attr('height', 500 + margin.top + margin.bottom)
       .append('g')
       .attr('transform',
@@ -44,25 +38,7 @@ export default {
       ['green', '#41C626'],
     ]);
 
-    svg.append('circle').attr('cx', 400).attr('cy', 130).attr('r', 6)
-      .style('fill', colors.get('black'));
-    svg.append('circle').attr('cx', 400).attr('cy', 160).attr('r', 6)
-      .style('fill', colors.get('red'));
-    svg.append('circle').attr('cx', 400).attr('cy', 190).attr('r', 6)
-      .style('fill', colors.get('blue'));
-    svg.append('circle').attr('cx', 400).attr('cy', 220).attr('r', 6)
-      .style('fill', colors.get('green'));
-
-    svg.append('text').attr('x', 420).attr('y', 130).text('Fossil')
-      .style('font-size', '15px')
-      .attr('alignment-baseline', 'middle');
-    svg.append('text').attr('x', 420).attr('y', 160).text('Nuclear')
-      .style('font-size', '15px')
-      .attr('alignment-baseline', 'middle');
-    svg.append('text').attr('x', 420).attr('y', 190).text('Hydroelectric')
-      .style('font-size', '15px')
-      .attr('alignment-baseline', 'middle');
-    svg.append('text').attr('x', 420).attr('y', 220).text('Renewable')
+    svg.append('text').attr('x', 380).attr('y', 100).text('Click on the source you want to sort')
       .style('font-size', '15px')
       .attr('alignment-baseline', 'middle');
 
@@ -215,7 +191,7 @@ export default {
 
       update(groups, subgroups, topCountries);
 
-      d3.selectAll('#fossil').on('click', () => {
+      function sortFossil() {
         subgroups = ['Percentage_fossil', 'Percentage_nuclear', 'Percentage_hydroelectric', 'Percentage_renewable'];
         color = d3.scaleOrdinal()
           .domain(subgroups)
@@ -225,8 +201,8 @@ export default {
         topCountries.forEach((element) => groups.push(element.Country));
 
         update(groups, subgroups, topCountries);
-      });
-      d3.selectAll('#nuclear').on('click', () => {
+      }
+      function sortNuclear() {
         subgroups = ['Percentage_nuclear', 'Percentage_fossil', 'Percentage_hydroelectric', 'Percentage_renewable'];
         color = d3.scaleOrdinal()
           .domain(subgroups)
@@ -236,8 +212,9 @@ export default {
         topCountries.forEach((element) => groups.push(element.Country));
 
         update(groups, subgroups, topCountries);
-      });
-      d3.selectAll('#hydroelectric').on('click', () => {
+      }
+
+      function sortHydroelectric() {
         subgroups = ['Percentage_hydroelectric', 'Percentage_fossil', 'Percentage_nuclear', 'Percentage_renewable'];
         color = d3.scaleOrdinal()
           .domain(subgroups)
@@ -247,8 +224,9 @@ export default {
         topCountries.forEach((element) => groups.push(element.Country));
 
         update(groups, subgroups, topCountries);
-      });
-      d3.selectAll('#renewable').on('click', () => {
+      }
+
+      function sortRenewable() {
         subgroups = ['Percentage_renewable', 'Percentage_fossil', 'Percentage_hydroelectric', 'Percentage_nuclear'];
         color = d3.scaleOrdinal()
           .domain(subgroups)
@@ -258,7 +236,39 @@ export default {
         topCountries.forEach((element) => groups.push(element.Country));
 
         update(groups, subgroups, topCountries);
-      });
+      }
+
+      svg.append('circle').attr('cx', 400).attr('cy', 130).attr('r', 6)
+        .style('fill', colors.get('black'))
+        .on('click', () => { sortFossil(); });
+      svg.append('circle').attr('cx', 400).attr('cy', 160).attr('r', 6)
+        .style('fill', colors.get('red'))
+        .on('click', () => { sortNuclear(); });
+      svg.append('circle').attr('cx', 400).attr('cy', 190).attr('r', 6)
+        .style('fill', colors.get('blue'))
+        .on('click', () => { sortHydroelectric(); });
+      svg.append('circle').attr('cx', 400).attr('cy', 220).attr('r', 6)
+        .style('fill', colors.get('green'))
+        .on('click', () => { sortRenewable(); });
+
+      svg.append('text').attr('x', 420).attr('y', 130).text('Fossil')
+        .style('font-size', '15px')
+        .attr('alignment-baseline', 'middle')
+        .on('click', () => { sortFossil(); });
+      svg.append('text').attr('x', 420).attr('y', 160).text('Nuclear')
+        .style('font-size', '15px')
+        .attr('alignment-baseline', 'middle')
+        .on('click', () => { sortNuclear(); });
+      svg.append('text').attr('x', 420).attr('y', 190).text('Hydroelectric')
+        .style('font-size', '15px')
+        .attr('alignment-baseline', 'middle')
+        .on('click', () => { sortHydroelectric(); });
+      svg.append('text').attr('x', 420).attr('y', 220).text('Renewable')
+        .style('font-size', '15px')
+        .attr('alignment-baseline', 'middle')
+        .on('click', () => { sortRenewable(); });
+
+      update(groups, subgroups, topCountries);
     });
   },
 };
