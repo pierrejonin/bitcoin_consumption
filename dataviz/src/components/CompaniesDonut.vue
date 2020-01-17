@@ -2,8 +2,16 @@
 <template>
   <b-container class="donut">
     <b-row>
-        <b-col cols="7">
+        <b-col cols="6">
           <svg class="cam"></svg>
+        </b-col>
+        <b-col cols="3">
+          <svg class="legend"></svg>
+          <br/>
+          <br/>
+          <div class="lComplementary">
+            More the blue is intense, more the pool's mining percentage is big.
+          </div>
         </b-col>
         <b-col>
           <span class="legende">
@@ -81,12 +89,24 @@ export default {
 
     const height = 650;
     const width = 720;
+    const Lheight = 50;
+    const Lwidth = 210;
     const margin = 20;
     const translateFactorX = 2.4;
     const translateFactorY = 3.5;
 
     const svg = d3.select('svg.cam').attr('width', width).attr('height', height);
+    const svg2 = d3.select('svg.legend').attr('width', Lwidth).attr('height', Lheight);
     const camembert = svg.append('g').attr('transform', `translate(${width / translateFactorX},${height / translateFactorY})`);
+
+    const lBlue = svg2.append('defs')
+      .append('svg:linearGradient')
+      .attr('id', 'gradientB')
+      .attr('x1', '0%')
+      .attr('y1', '100%')
+      .attr('x2', '100%')
+      .attr('y2', '100%')
+      .attr('spreadMethod', 'pad');
 
     const tooltip = d3.select('.donut')
       .append('div')
@@ -195,8 +215,8 @@ export default {
         })
         .attr('padding', '10px;');
       svg.append('text')
-        .attr('x', width * 0.6)
-        .attr('y', height * 0.7)
+        .attr('x', width * 0.5)
+        .attr('y', height * 0.73)
         .attr('text-anchor', 'middle')
         .attr('text-decoration', 'underline')
         .style('font-size', '24px')
@@ -210,6 +230,36 @@ export default {
         .style('font-weight', 'bold')
         .attr('transform', 'rotate(-13)')
         .text('₿');
+
+      lBlue.append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', color(0))
+        .attr('stop-opacity', 1);
+
+      // color fin
+      lBlue.append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', color(maxFreq))
+        .attr('stop-opacity', 1);
+
+      svg2.append('rect')
+        .attr('width', Lwidth - 9)
+        .attr('height', Lheight - 30)
+        .style('fill', 'url(#gradientB)')
+        .attr('transform', 'translate(0,10)');
+
+      const ticksScale = d3.scaleLinear()
+        .range([200, 0])
+        .domain([20, -0.3]);
+
+      const yAxisBlue = d3.axisBottom()
+        .scale(ticksScale)
+        .ticks(5);
+
+      svg2.append('g')
+        .attr('class', 'y axis')
+        .attr('transform', 'translate(0,30)')
+        .call(yAxisBlue);
     });
   },
 };
@@ -244,4 +294,8 @@ path.donutPath {
   stroke-width: 0;
 }
 
+.lComplementary {
+  text-align: justify;
+  width: 80%;
+}
 </style>
