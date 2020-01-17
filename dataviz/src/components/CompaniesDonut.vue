@@ -174,7 +174,7 @@ export default {
         .on('mousemove', (d) => {
           const mousePosition = d3.mouse(d3.event.currentTarget);
           tooltip.classed('hidden', false)
-            .attr('style', `left:${mousePosition[0] + width / 2.3}px; top:${mousePosition[1] + Math.abs(bodyPos.y - donutPos.y) + 100}px`)
+            .attr('style', `left:${d3.event.pageX - 100}px; top:${d3.event.pageY - 100}px`)
             .html(`Pool's name : ${d.data.name == '🐟' ? 'F2Pool' : d.data.name}
               <br>Bitcoins mined : ${d.data.value * 12.5}
               <br>Countries : ${d.data.name == '🐟' ? countries.F2Pool : countries[d.data.name] != undefined ? countries[d.data.name] : 'Unknown'}
