@@ -287,6 +287,7 @@ div.tooltip {
 .legende {
   margin-top: 50px;
   position: relative;
+  text-align: justify;
 }
 
 path.donutPath {
